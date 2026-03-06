@@ -5,11 +5,120 @@ using UnityEngine;
 public class inimigoManager : MonoBehaviour
 {
     public static inimigoManager main;
-
+    public Transform spawnpoint;
     public Transform[] checkpoints;
+
+    [SerializeField] private GameObject inimigoRapido;
+    [SerializeField] private GameObject inimigoTank;
+    [SerializeField] private GameObject inimigoNormal;
+
+    [SerializeField] private int onda = 1;
+    [SerializeField] private int inimigosTotal = 6;
+    [SerializeField] private float inimigosTotalSpawn = 0.2f;
+    [SerializeField] private float SpawnDelayMax = 1f;
+    [SerializeField] private float SpawnDelayMin = 0.75f;
+
+    [SerializeField] private float normalSpawn = 0.5f ;
+    [SerializeField] private float rapidoSpawn = 0.3f;
+    [SerializeField] private float tankSpawn = 0.2f;
+
+    private bool ondaConcluida = false;
+    private List<GameObject> ondas = new List<GameObject>();
+    private int inimigoFalta;
+
+    private int normalTotal;
+    private int rapidoTotal;
+    private int tankTotal;
 
     void Awake()
     {
         main = this;
+    }
+
+    void Start()
+    {
+        SetOndas();
+    }
+
+    void Update()
+    {
+        GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
+
+        if(Input.GetKeyDown(KeyCode.Return) && ondaConcluida && inimigos.Length == 0)
+        {
+            onda++;
+            ondaConcluida = false;
+            inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
+            SetOndas();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && ondaConcluida)
+        {
+            for (int i = 0; i < inimigos.Length; i++)
+            {
+                Destroy(inimigos[i]);
+            }
+        }
+    }
+
+    private void SetOndas()
+    {
+        normalTotal = Mathf.RoundToInt(inimigosTotal * (normalSpawn + tankTotal));
+        rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
+        tankTotal = 0;
+        
+        if(onda % 5 == 0)
+        {
+            tankTotal = Mathf.RoundToInt(inimigosTotal * tankSpawn);
+            normalTotal = Mathf.RoundToInt(inimigosTotal * normalSpawn);
+        }
+
+        inimigoFalta = normalTotal + rapidoTotal + tankTotal;
+        inimigosTotal = inimigoFalta;
+
+        ondas = new List<GameObject>();
+
+        for(int i = 0; i < normalTotal; i++)
+        {
+            ondas.Add(inimigoNormal);
+        }
+        for (int i = 0; i < rapidoTotal; i++)
+        {
+            ondas.Add(inimigoRapido);
+        }
+        for (int i = 0; i < tankTotal; i++)
+        {
+            ondas.Add(inimigoTank);
+        }
+
+        ondas = Embaralhar(ondas);
+
+        StartCoroutine(spawn());
+    }
+
+    public List<GameObject> Embaralhar(List<GameObject> ondas)
+    {
+        List<GameObject> tempo = new List<GameObject>();
+        List<GameObject> resultado = new List<GameObject>();
+        tempo.AddRange(ondas);
+
+        for(int i = 0;i < ondas.Count; i++)
+        {
+            int index = Random.Range(0, tempo.Count - 1);
+            resultado.Add(tempo[index]);
+            tempo.RemoveAt(index);
+        }
+
+        return resultado;
+    }
+
+    IEnumerator spawn ()
+    {
+        for (int i = 0; i < ondas.Count; i++) 
+        { 
+            Instantiate(ondas[i], spawnpoint.position,Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(SpawnDelayMin,SpawnDelayMax));
+        }
+        ondaConcluida = true;
     }
 }
