@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 public class inimigo : MonoBehaviour
 {
+    [SerializeField] private int vida = 20;
     [SerializeField] private float movespeed = 2f;
 
     private Rigidbody2D rb;
@@ -35,6 +36,12 @@ public class inimigo : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        if (vida <= 0)
+        {
+            Debug.Log("matou!");
+            Destroy(gameObject);
+        }
     }
 
 
@@ -49,5 +56,12 @@ public class inimigo : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
 
         rb.velocity = direction * movespeed;
+    }
+
+    public void ReceberDano(int dano)
+    {
+
+        vida = -dano;
+        //vida--; 
     }
 }

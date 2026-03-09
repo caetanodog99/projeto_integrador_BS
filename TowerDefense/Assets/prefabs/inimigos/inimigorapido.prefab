@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1047019029087787724}
   - component: {fileID: 4747523648726941469}
   - component: {fileID: 6163145481706702895}
+  - component: {fileID: 8648605969786075523}
   m_Layer: 0
   m_Name: inimigorapido
   m_TagString: inimigo
@@ -210,4 +211,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e925821cc5a9d43ab82dab7ba29c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 4
+  vida: 10
+  movespeed: 3.5
+--- !u!58 &8648605969786075523
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820251396827772833}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5000002

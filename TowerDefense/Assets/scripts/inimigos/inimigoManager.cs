@@ -44,8 +44,9 @@ public class inimigoManager : MonoBehaviour
     {
         GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
 
-        if(Input.GetKeyDown(KeyCode.Return) && ondaConcluida && inimigos.Length == 0)
+        if(Input.GetKeyDown(KeyCode.T) && ondaConcluida && inimigos.Length == 0)
         {
+            Debug.Log("apertou T");
             onda++;
             ondaConcluida = false;
             inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
@@ -63,13 +64,14 @@ public class inimigoManager : MonoBehaviour
 
     private void SetOndas()
     {
+
         normalTotal = Mathf.RoundToInt(inimigosTotal * (normalSpawn + tankTotal));
         rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
         tankTotal = 0;
-        
-        if(onda % 5 == 0)
+
+        if (onda % 1 == 0)
         {
-            tankTotal = Mathf.RoundToInt(inimigosTotal * tankSpawn);
+           tankTotal = Mathf.RoundToInt(inimigosTotal * tankSpawn);
             normalTotal = Mathf.RoundToInt(inimigosTotal * normalSpawn);
         }
 
