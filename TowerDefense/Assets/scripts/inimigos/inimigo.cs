@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,15 @@ using UnityEngine.Rendering;
 
 public class inimigo : MonoBehaviour
 {
-    [SerializeField] private int vida = 20;
+    [SerializeField] public int vida = 20;
     [SerializeField] private float movespeed = 2f;
 
     private Rigidbody2D rb;
 
     private Transform checkpoint;
 
-    private int index = 0;
+    [NonSerialized] public int index = 0;
+    [NonSerialized] public float distancia = 0;
 
     void Awake()
     {
@@ -21,19 +23,20 @@ public class inimigo : MonoBehaviour
 
     void Start()
     {
-        checkpoint = inimigoManager.main.checkpoints[index]; 
+        checkpoint = inimigoManager.main.checkpoints[index];
     }
 
     void Update()
     {
         checkpoint = inimigoManager.main.checkpoints[index];
-
+        distancia = Vector2.Distance(transform.position, inimigoManager.main.checkpoints[index].transform.position);
         if (Vector2.Distance(checkpoint.transform.position, transform.position) <= 0.1f)
         {
             index++;
             if (index >= inimigoManager.main.checkpoints.Length)
             {
                 Destroy(gameObject);
+
             }
         }
 
@@ -62,6 +65,6 @@ public class inimigo : MonoBehaviour
     {
 
         vida = -dano;
-        //vida--; 
+
     }
 }

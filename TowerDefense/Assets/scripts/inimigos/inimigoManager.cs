@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +21,7 @@ public class inimigoManager : MonoBehaviour
     [SerializeField] private float SpawnDelayMax = 1f;
     [SerializeField] private float SpawnDelayMin = 0.75f;
 
-    [SerializeField] private float normalSpawn = 0.5f ;
+    [SerializeField] private float normalSpawn = 0.5f;
     [SerializeField] private float rapidoSpawn = 0.3f;
     [SerializeField] private float tankSpawn = 0.2f;
 
@@ -44,7 +47,7 @@ public class inimigoManager : MonoBehaviour
     {
         GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
 
-        if(Input.GetKeyDown(KeyCode.T) && ondaConcluida && inimigos.Length == 0)
+        if (Input.GetKeyDown(KeyCode.T) && ondaConcluida && inimigos.Length == 0)
         {
             Debug.Log("apertou T");
             onda++;
@@ -71,7 +74,7 @@ public class inimigoManager : MonoBehaviour
 
         if (onda % 1 == 0)
         {
-           tankTotal = Mathf.RoundToInt(inimigosTotal * tankSpawn);
+            tankTotal = Mathf.RoundToInt(inimigosTotal * tankSpawn);
             normalTotal = Mathf.RoundToInt(inimigosTotal * normalSpawn);
         }
 
@@ -80,7 +83,7 @@ public class inimigoManager : MonoBehaviour
 
         ondas = new List<GameObject>();
 
-        for(int i = 0; i < normalTotal; i++)
+        for (int i = 0; i < normalTotal; i++)
         {
             ondas.Add(inimigoNormal);
         }
@@ -104,7 +107,7 @@ public class inimigoManager : MonoBehaviour
         List<GameObject> resultado = new List<GameObject>();
         tempo.AddRange(ondas);
 
-        for(int i = 0;i < ondas.Count; i++)
+        for (int i = 0; i < ondas.Count; i++)
         {
             int index = Random.Range(0, tempo.Count - 1);
             resultado.Add(tempo[index]);
@@ -114,12 +117,12 @@ public class inimigoManager : MonoBehaviour
         return resultado;
     }
 
-    IEnumerator spawn ()
+    IEnumerator spawn()
     {
-        for (int i = 0; i < ondas.Count; i++) 
-        { 
-            Instantiate(ondas[i], spawnpoint.position,Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(SpawnDelayMin,SpawnDelayMax));
+        for (int i = 0; i < ondas.Count; i++)
+        {
+            Instantiate(ondas[i], spawnpoint.position, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(SpawnDelayMin, SpawnDelayMax));
         }
         ondaConcluida = true;
     }
