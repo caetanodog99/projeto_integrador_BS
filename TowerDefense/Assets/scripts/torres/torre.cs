@@ -14,7 +14,10 @@ public class Torre : MonoBehaviour
     public bool primeiro = true;
     public bool ultimo = false;
     public bool forte = false;
-    
+
+    [Header("Efeitos:")]
+    [SerializeField] GameObject efeitoDisparo;  
+
     public GameObject alvo;
     private float recarga = 0f;
     void Start()
@@ -38,11 +41,19 @@ public class Torre : MonoBehaviour
 
                 alvo.GetComponent<inimigo>().ReceberDano(dano);
                 recarga = 0f;
+                StartCoroutine(DisparoEfeito());
             }
             else
             {
                 recarga += 1 * Time.deltaTime;
             }
         }
+    }
+
+    IEnumerator DisparoEfeito()
+    {
+        efeitoDisparo.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        efeitoDisparo.SetActive(false);
     }
 }

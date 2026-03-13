@@ -81,6 +81,10 @@ public class areaTorre : MonoBehaviour
             }
 
         }
+        else
+        {
+            torre.alvo = null;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

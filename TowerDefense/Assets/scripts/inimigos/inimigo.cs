@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class inimigo : MonoBehaviour
 {
-    [SerializeField] public int vida = 20;
+    [SerializeField] public int vida = 2020;
     [SerializeField] private float movespeed = 2f;
 
     private Rigidbody2D rb;
@@ -64,7 +64,7 @@ public class inimigo : MonoBehaviour
     public void ReceberDano(int dano)
     {
 
-        vida = -dano;
+        vida = vida-dano;
 
     }
 }
