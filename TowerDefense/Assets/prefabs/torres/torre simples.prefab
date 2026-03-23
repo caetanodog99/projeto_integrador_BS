@@ -232,7 +232,8 @@ GameObject:
   - component: {fileID: 8829266692048815167}
   - component: {fileID: 1719720077981985646}
   - component: {fileID: 7899464261854141075}
-  m_Layer: 0
+  - component: {fileID: 4499463915418523118}
+  m_Layer: 6
   m_Name: torre simples
   m_TagString: torre
   m_Icon: {fileID: 0}
@@ -324,6 +325,7 @@ MonoBehaviour:
   area: 5.2
   dano: 10
   cadencia: 1.1
+  valor: 50
   primeiro: 1
   ultimo: 0
   forte: 0
@@ -408,6 +410,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4499463915418523118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360102733375499354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9a8697d70e45d4693e10c59054eebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  niveis:
+  - area: 6
+    dano: 10
+    cadencia: 0.9
+    valor: 30
+  - area: 6.2
+    dano: 15
+    cadencia: 0.8
+    valor: 45
+  - area: 6.7
+    dano: 17
+    cadencia: 0.8
+    valor: 60
+  areaTorre: {fileID: 5836750629019359647}
 --- !u!1 &7670670463460847253
 GameObject:
   m_ObjectHideFlags: 0

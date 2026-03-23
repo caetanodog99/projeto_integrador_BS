@@ -316,7 +316,8 @@ GameObject:
   - component: {fileID: 5809498683074980007}
   - component: {fileID: 8750167525303786800}
   - component: {fileID: 6139017610896161900}
-  m_Layer: 0
+  - component: {fileID: 2658338881208178424}
+  m_Layer: 6
   m_Name: torre sniper
   m_TagString: torre
   m_Icon: {fileID: 0}
@@ -408,6 +409,7 @@ MonoBehaviour:
   area: 12
   dano: 20
   cadencia: 2.1
+  valor: 50
   primeiro: 1
   ultimo: 0
   forte: 0
@@ -492,3 +494,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2658338881208178424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879394173876560064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9a8697d70e45d4693e10c59054eebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  niveis:
+  - area: 15
+    dano: 20
+    cadencia: 2.1
+    valor: 20
+  - area: 20
+    dano: 22
+    cadencia: 1.8
+    valor: 50
+  - area: 30
+    dano: 25
+    cadencia: 1.7
+    valor: 80
+  areaTorre: {fileID: 494350401548745739}

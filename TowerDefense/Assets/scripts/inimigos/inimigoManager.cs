@@ -25,7 +25,10 @@ public class inimigoManager : MonoBehaviour
     [SerializeField] private float rapidoSpawn = 0.3f;
     [SerializeField] private float tankSpawn = 0.2f;
 
+    [SerializeField] private GameObject painelOndas;
+
     private bool ondaConcluida = false;
+    private bool ondaInterrompida = false;
     private List<GameObject> ondas = new List<GameObject>();
     private int inimigoFalta;
 
@@ -47,21 +50,11 @@ public class inimigoManager : MonoBehaviour
     {
         GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
 
-        if (Input.GetKeyDown(KeyCode.T) && ondaConcluida && inimigos.Length == 0)
+        if (!ondaInterrompida && ondaConcluida && inimigos.Length == 0)
         {
-            Debug.Log("apertou T");
-            onda++;
-            ondaConcluida = false;
-            inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
-            SetOndas();
-        }
-
-        if (Input.GetKeyDown(KeyCode.D) && ondaConcluida)
-        {
-            for (int i = 0; i < inimigos.Length; i++)
-            {
-                Destroy(inimigos[i]);
-            }
+            jogador.main.creditos += 15 + (5 * onda);
+            ondaInterrompida = true;
+            painelOndas.SetActive(true);
         }
     }
 
@@ -117,6 +110,22 @@ public class inimigoManager : MonoBehaviour
         return resultado;
     }
 
+    public void ProximaOnda()
+    {
+        GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
+
+        painelOndas.SetActive(false);
+
+        if (ondaConcluida && inimigos.Length == 0)
+        {
+            Debug.Log("onda "+ onda +" concluida!");
+            onda++;
+            ondaConcluida = false;
+            ondaInterrompida = false;
+            inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
+            SetOndas();
+        }
+    }
     IEnumerator spawn()
     {
         for (int i = 0; i < ondas.Count; i++)

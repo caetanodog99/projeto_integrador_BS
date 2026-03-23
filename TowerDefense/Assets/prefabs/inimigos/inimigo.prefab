@@ -129,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 20
   movespeed: 2.2
+  valor: 5
 --- !u!58 &6831868183253245902
 CircleCollider2D:
   m_ObjectHideFlags: 0

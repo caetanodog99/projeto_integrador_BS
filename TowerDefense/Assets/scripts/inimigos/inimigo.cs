@@ -8,6 +8,7 @@ public class inimigo : MonoBehaviour
 {
     [SerializeField] public int vida = 2020;
     [SerializeField] private float movespeed = 2f;
+    [SerializeField] private int valor = 10;
 
     private Rigidbody2D rb;
 
@@ -35,16 +36,13 @@ public class inimigo : MonoBehaviour
             index++;
             if (index >= inimigoManager.main.checkpoints.Length)
             {
+                jogador.main.ReceberDano(vida);
                 Destroy(gameObject);
 
             }
         }
 
-        if (vida <= 0)
-        {
-            Debug.Log("matou!");
-            Destroy(gameObject);
-        }
+        
     }
 
 
@@ -66,5 +64,10 @@ public class inimigo : MonoBehaviour
 
         vida = vida-dano;
 
+        if (vida <= 0)
+        {
+            jogador.main.creditos += valor;
+            Destroy(gameObject);
+        }
     }
 }

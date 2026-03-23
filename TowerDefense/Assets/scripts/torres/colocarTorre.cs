@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -12,18 +13,23 @@ public class colocarTorre : MonoBehaviour
 
 
     [SerializeField] public bool colocando = true;
-    private bool restrito;
+    private bool restrito = false;
+
+    private Torre torre;
 
     private float tempoUltimoToque = 0f;
     private float limiteTempoToqueDuplo = 0.25f;
 
     void Awake()
     {
+        torre= GetComponent<Torre>();
         colliderArea.enabled = false;
+        spriteArea.color = cinza;
     }
 
     void Update()
     {
+        //Debug.Log("ta restrito? " + restrito);
        
         bool toqueDuploDetectado = false;
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
@@ -48,11 +54,18 @@ public class colocarTorre : MonoBehaviour
         }
 
        
-        if (Input.GetMouseButtonDown(1) || toqueDuploDetectado && !restrito)
+        if (Input.GetMouseButtonDown(1) || toqueDuploDetectado && torre.valor <= jogador.main.creditos )
         {
-            colliderArea.enabled = true;
-            colocando = false;
-            GetComponent<colocarTorre>().enabled = false;
+            if (restrito == false)
+            {
+                //Debug.Log("pode colocar");
+                colliderArea.enabled = true;
+                colocando = false;
+                spriteArea.enabled = false;
+                jogador.main.creditos = jogador.main.creditos - torre.valor;
+                //Debug.Log("grana: " +jogador.main.creditos);
+                GetComponent<colocarTorre>().enabled = false;
+            }
         }
 
         if (restrito)

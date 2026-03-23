@@ -9,6 +9,7 @@ public class Torre : MonoBehaviour
     public float area = 8f;
     public int dano = 10;
     public float cadencia = 1f;
+    public int valor = 60;
 
     [Header("Mirar no alvo:")]
     public bool primeiro = true;
