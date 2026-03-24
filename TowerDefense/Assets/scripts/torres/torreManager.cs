@@ -41,56 +41,50 @@ public class torreManager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,100f,torreLayer);
+        bool clicou = Input.GetMouseButtonDown(0);
+        bool tocou = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
 
-            if(hit.collider != null)
+        if (clicou || tocou)
+        {
+            
+            Vector3 posicaoEntrada = clicou ? Input.mousePosition : (Vector3)Input.GetTouch(0).position;
+
+          
+            if (EventSystem.current.IsPointerOverGameObject() ||
+               (tocou && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)))
             {
+                return;
+            }
+
+          
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(posicaoEntrada), Vector2.zero, 100f, torreLayer);
+
+            if (hit.collider != null)
+            {
+              
                 if (torreSelecionada)
                 {
-                    GameObject area1 = torreSelecionada.transform.GetChild(1).gameObject;
-          
-                    area1.GetComponent<SpriteRenderer>().enabled = false;
+                    torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 }
+
                 torreSelecionada = hit.collider.gameObject;
-
-                GameObject area2 = torreSelecionada.transform.GetChild(1).gameObject;
-
-                area2.GetComponent<SpriteRenderer>().enabled = true;
+                torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = true;
 
                 panel.SetActive(true);
-                nomeTorre.text = torreSelecionada.name.Replace("(Clone)","");
-                nivelTorre.text = "Nível: " + torreSelecionada.GetComponent<upgradeTorres>().nivelAtual.ToString();
-                valorUpgrade.text = torreSelecionada.GetComponent<upgradeTorres>().valorAtual;
 
-                Torre torre = torreSelecionada.GetComponent<Torre>();
+               
+                upgradeTorres scriptUpgrade = torreSelecionada.GetComponent<upgradeTorres>();
+                nomeTorre.text = torreSelecionada.name.Replace("(Clone)", "");
+                nivelTorre.text = "Nível: " + scriptUpgrade.nivelAtual;
+                valorUpgrade.text = scriptUpgrade.valorAtual;
 
-                if (torre.primeiro)
-                {
-                    alvoTorre.text = " Primeiro";
-                }
-                else if (torre.ultimo)
-                {
-                    alvoTorre.text = " Último";
-                }
-                else if (torre.forte)
-                {
-                    alvoTorre.text = " Forte";
-                }
-                else
-                {
-                    alvoTorre.text = " Primeiro";
-                }
+                //ConfigurarTextoAlvo(torreSelecionada.GetComponent<Torre>());
             }
-            else if(!EventSystem.current.IsPointerOverGameObject()&& torreSelecionada)
+            else if (torreSelecionada)
             {
+                
                 panel.SetActive(false);
-
-                GameObject area1 = torreSelecionada.transform.GetChild(1).gameObject;
-
-                area1.GetComponent<SpriteRenderer>().enabled = false;
-
+                torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 torreSelecionada = null;
             }
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JetBrains.Annotations;
 
 public class inimigoManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class inimigoManager : MonoBehaviour
     [SerializeField] private float tankSpawn = 0.2f;
 
     [SerializeField] private GameObject painelOndas;
+
+    [SerializeField] public GameObject botaoPlay;
 
     private bool ondaConcluida = false;
     private bool ondaInterrompida = false;
@@ -91,7 +94,13 @@ public class inimigoManager : MonoBehaviour
 
         ondas = Embaralhar(ondas);
 
+        
+        
+    }
+    public void BotaoPlay()
+    {
         StartCoroutine(spawn());
+        botaoPlay.SetActive(false);
     }
 
     public List<GameObject> Embaralhar(List<GameObject> ondas)
