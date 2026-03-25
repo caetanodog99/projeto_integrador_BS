@@ -19,7 +19,9 @@ public class upgradeTorres : MonoBehaviour
     [NonSerialized] public string valorAtual;
 
     private Torre torre;
-    [SerializeField]private areaTorre areaTorre;    
+    [SerializeField]private areaTorre areaTorre;
+
+    [SerializeField] private GameObject painelDinheiro;
 
     void Awake()
     {
@@ -52,5 +54,16 @@ public class upgradeTorres : MonoBehaviour
 
             Debug.Log("Upou de nível!");
         }
+        else
+        {
+            StartCoroutine(SemDinheiro());
+        }
+
+    }
+    IEnumerator SemDinheiro()
+    {
+        painelDinheiro.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        painelDinheiro.SetActive(false);
     }
 }

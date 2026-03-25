@@ -46,7 +46,7 @@ public class inimigoManager : MonoBehaviour
 
     void Start()
     {
-        SetOndas();
+        
     }
 
     void Update()
@@ -63,7 +63,7 @@ public class inimigoManager : MonoBehaviour
 
     private void SetOndas()
     {
-
+       
         normalTotal = Mathf.RoundToInt(inimigosTotal * (normalSpawn + tankTotal));
         rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
         tankTotal = 0;
@@ -94,13 +94,15 @@ public class inimigoManager : MonoBehaviour
 
         ondas = Embaralhar(ondas);
 
-        
-        
-    }
-    public void BotaoPlay()
-    {
         StartCoroutine(spawn());
+
+    }
+   public void BotaoPlay()
+    {
+        SetOndas();
+        
         botaoPlay.SetActive(false);
+        
     }
 
     public List<GameObject> Embaralhar(List<GameObject> ondas)

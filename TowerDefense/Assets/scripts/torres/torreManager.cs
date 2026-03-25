@@ -21,14 +21,20 @@ public class torreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI alvoTorre;
     [SerializeField] private TextMeshProUGUI nivelTorre;
 
+    private int valorTorre;
+    private int creditosJogador;
+
 
     private GameObject torreSelecionada;
     private GameObject colocandoTorre;
 
-    
+    [SerializeField] private GameObject painelDinheiro;
+
+
+
     void Update()
     {
-       if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             LimparSelecao();
         }
@@ -46,22 +52,22 @@ public class torreManager : MonoBehaviour
 
         if (clicou || tocou)
         {
-            
+
             Vector3 posicaoEntrada = clicou ? Input.mousePosition : (Vector3)Input.GetTouch(0).position;
 
-          
+
             if (EventSystem.current.IsPointerOverGameObject() ||
                (tocou && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)))
             {
                 return;
             }
 
-          
+
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(posicaoEntrada), Vector2.zero, 100f, torreLayer);
 
             if (hit.collider != null)
             {
-              
+
                 if (torreSelecionada)
                 {
                     torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -72,17 +78,17 @@ public class torreManager : MonoBehaviour
 
                 panel.SetActive(true);
 
-               
+
                 upgradeTorres scriptUpgrade = torreSelecionada.GetComponent<upgradeTorres>();
                 nomeTorre.text = torreSelecionada.name.Replace("(Clone)", "");
                 nivelTorre.text = "Nível: " + scriptUpgrade.nivelAtual;
                 valorUpgrade.text = scriptUpgrade.valorAtual;
 
-                //ConfigurarTextoAlvo(torreSelecionada.GetComponent<Torre>());
+
             }
             else if (torreSelecionada)
             {
-                
+
                 panel.SetActive(false);
                 torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 torreSelecionada = null;
@@ -92,7 +98,7 @@ public class torreManager : MonoBehaviour
 
     private void LimparSelecao()
     {
-        if(colocandoTorre)
+        if (colocandoTorre)
         {
             Destroy(colocandoTorre);
             colocandoTorre = null;
@@ -101,8 +107,24 @@ public class torreManager : MonoBehaviour
 
     public void setTorre(GameObject torre)
     {
-        LimparSelecao();
-        colocandoTorre = Instantiate(torre);
+        creditosJogador = GetComponent<jogador>().creditos;
+        if (creditosJogador >= 50)
+        {
+            LimparSelecao();
+            colocandoTorre = Instantiate(torre);
+        }
+        else
+        {
+            StartCoroutine(SemDinheiro());
+        }
+
+    }
+
+    IEnumerator SemDinheiro()
+    {
+        painelDinheiro.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        painelDinheiro.SetActive(false);
     }
 
     public void EvoluirSelecionada()
