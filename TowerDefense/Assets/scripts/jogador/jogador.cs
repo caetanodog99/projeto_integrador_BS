@@ -41,4 +41,11 @@ public class jogador : MonoBehaviour
         string faseAtual = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(faseAtual);
     }
+
+    public void MenuInicial()
+    {
+        string faseAtual = SceneManager.GetActiveScene().name;
+        SceneManager.UnloadScene(faseAtual);
+        SceneManager.LoadSceneAsync(0);
+    }
 }

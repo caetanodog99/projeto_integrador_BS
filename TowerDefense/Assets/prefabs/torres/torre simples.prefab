@@ -208,7 +208,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+  m_Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 1719720077981985646}
   - component: {fileID: 7899464261854141075}
   - component: {fileID: 4499463915418523118}
+  - component: {fileID: 2419564518092670570}
   m_Layer: 6
   m_Name: torre simples
   m_TagString: torre
@@ -250,7 +251,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.8666, y: -2.1936, z: 0}
-  m_LocalScale: {x: 0.6827479, y: 0.6827479, z: 0.6827479}
+  m_LocalScale: {x: 0.68274784, y: 0.6827479, z: 0.6827479}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5848239755881582425}
@@ -299,8 +300,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.12904951, g: 0.69701946, b: 0.9433962, a: 1}
+  m_Sprite: {fileID: 6148179965051618925, guid: d624fee6182116646989adc0244fd0f8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -447,6 +448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3563198194055968316}
   - component: {fileID: 725520594910431346}
+  - component: {fileID: 7597654864405610111}
   m_Layer: 0
   m_Name: disparo
   m_TagString: Untagged
@@ -463,8 +465,8 @@ Transform:
   m_GameObject: {fileID: 7670670463460847253}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.563, y: -0.039, z: 0}
-  m_LocalScale: {x: 0.62923867, y: 1.2028878, z: 0.4487}
+  m_LocalPosition: {x: 1.894, y: -0.093, z: 0}
+  m_LocalScale: {x: 3.810577, y: 3.3887753, z: 1.2640777}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8218037798987193024}
@@ -510,8 +512,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0.36892503, b: 0, a: 1}
+  m_Sprite: {fileID: -3347858826921026336, guid: 7c79fe2686bb7764f8daf239caa7cd20, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -576,5 +578,53 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 999525376709772579, guid: 2741fa7d5c28f3f4780f02e3943b6595, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2419564518092670570}
+    - targetCorrespondingSourceObject: {fileID: 8570759074972783194, guid: 2741fa7d5c28f3f4780f02e3943b6595, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7597654864405610111}
   m_SourcePrefab: {fileID: 100100000, guid: 2741fa7d5c28f3f4780f02e3943b6595, type: 3}
+--- !u!95 &2419564518092670570
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360102733375499354}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4e36ed9c6cb9234459fc12d5a4f60bfb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!95 &7597654864405610111
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670670463460847253}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9ecc03159f3423043856afd1bb710eb8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

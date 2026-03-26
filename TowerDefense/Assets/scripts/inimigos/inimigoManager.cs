@@ -28,6 +28,8 @@ public class inimigoManager : MonoBehaviour
 
     [SerializeField] private GameObject painelOndas;
 
+    [SerializeField] public GameObject painelVitoria;
+
     [SerializeField] public GameObject botaoPlay;
 
     private bool ondaConcluida = false;
@@ -58,6 +60,12 @@ public class inimigoManager : MonoBehaviour
             jogador.main.creditos += 15 + (5 * onda);
             ondaInterrompida = true;
             painelOndas.SetActive(true);
+        }
+
+        if(onda == 2)
+        {
+            Time.timeScale = 0f;
+            painelVitoria.SetActive(true);
         }
     }
 

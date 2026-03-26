@@ -21,12 +21,14 @@ public class upgradeTorres : MonoBehaviour
     private Torre torre;
     [SerializeField]private areaTorre areaTorre;
 
-    [SerializeField] private GameObject painelDinheiro;
+   
 
     void Awake()
     {
         torre = GetComponent<Torre>();
         valorAtual = niveis[0].valor.ToString();
+    
+ 
     }
 
     
@@ -56,14 +58,14 @@ public class upgradeTorres : MonoBehaviour
         }
         else
         {
-            StartCoroutine(SemDinheiro());
+            //StartCoroutine(SemDinheiro());
         }
 
     }
-    IEnumerator SemDinheiro()
-    {
-        painelDinheiro.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
-        painelDinheiro.SetActive(false);
-    }
+    //IEnumerator SemDinheiro()
+    //{
+    //    painelDinheiro.SetActive(true);
+    //    yield return new WaitForSeconds(1.5f);
+    //    painelDinheiro.SetActive(false);
+    //}
 }

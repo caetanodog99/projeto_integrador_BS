@@ -7,6 +7,7 @@ TagManager:
   - inimigo
   - caminho
   - torre
+  - semDinheiro
   layers:
   - Default
   - TransparentFX

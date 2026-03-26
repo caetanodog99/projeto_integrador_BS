@@ -21,9 +21,11 @@ public class Torre : MonoBehaviour
 
     public GameObject alvo;
     private float recarga = 0f;
+
+     private Animator animator;
     void Start()
     {
-
+        animator = GetComponent<Animator>(); 
     }
 
     void Update()
@@ -40,6 +42,8 @@ public class Torre : MonoBehaviour
 
                 //transform.right = alvo.transform.position - transform.position;
 
+                
+
                 alvo.GetComponent<inimigo>().ReceberDano(dano);
                 recarga = 0f;
                 StartCoroutine(DisparoEfeito());
@@ -47,14 +51,17 @@ public class Torre : MonoBehaviour
             else
             {
                 recarga += 1 * Time.deltaTime;
+                
             }
         }
     }
 
     IEnumerator DisparoEfeito()
     {
+        animator.SetBool("atacando", true);
         efeitoDisparo.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         efeitoDisparo.SetActive(false);
+        animator.SetBool("atacando", false);
     }
 }
