@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 8750167525303786800}
   - component: {fileID: 6139017610896161900}
   - component: {fileID: 2658338881208178424}
+  - component: {fileID: 7032241467646717552}
   m_Layer: 6
   m_Name: torre sniper
   m_TagString: torre
@@ -520,7 +521,6 @@ MonoBehaviour:
     cadencia: 1.7
     valor: 80
   areaTorre: {fileID: 494350401548745739}
-  painelDinheiro: {fileID: 0}
 --- !u!1001 &6241525168092971588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -576,5 +576,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8215332402113865557, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7032241467646717552}
   m_SourcePrefab: {fileID: 100100000, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
+--- !u!95 &7032241467646717552
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879394173876560064}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

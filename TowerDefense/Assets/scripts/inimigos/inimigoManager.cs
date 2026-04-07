@@ -62,7 +62,7 @@ public class inimigoManager : MonoBehaviour
             painelOndas.SetActive(true);
         }
 
-        if(onda == 2)
+        if(onda == 11)
         {
             Time.timeScale = 0f;
             painelVitoria.SetActive(true);

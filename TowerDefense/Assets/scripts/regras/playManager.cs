@@ -5,6 +5,7 @@ using UnityEngine;
 public class playManager : MonoBehaviour
 {
     [SerializeField] public GameObject painelPause;
+    [SerializeField] public GameObject painelLoja;
 
     public void BotaoPause()
     {
@@ -16,5 +17,15 @@ public class playManager : MonoBehaviour
     {
         Time.timeScale = 1;
         painelPause.SetActive(false);
+    }
+
+    public void AbrirLoja()
+    {
+        painelLoja.SetActive(true);
+    }
+
+    public void FecharLoja()
+    {
+        painelLoja.SetActive(false);
     }
 }
