@@ -435,9 +435,8 @@ MonoBehaviour:
   - area: 6.7
     dano: 17
     cadencia: 0.8
-    valor: 60
+    valor: 70
   areaTorre: {fileID: 5836750629019359647}
-  painelDinheiro: {fileID: 0}
 --- !u!1 &7670670463460847253
 GameObject:
   m_ObjectHideFlags: 0

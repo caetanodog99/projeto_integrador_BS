@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JetBrains.Annotations;
+using TMPro;
 
 public class inimigoManager : MonoBehaviour
 {
@@ -29,6 +29,8 @@ public class inimigoManager : MonoBehaviour
     [SerializeField] private GameObject painelOndas;
 
     [SerializeField] public GameObject painelVitoria;
+
+    [SerializeField] private TextMeshProUGUI OndasTXT;
 
     [SerializeField] public GameObject botaoPlay;
 
@@ -67,6 +69,22 @@ public class inimigoManager : MonoBehaviour
             Time.timeScale = 0f;
             painelVitoria.SetActive(true);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && botaoPlay.activeSelf)
+        {
+            SetOndas();
+
+            botaoPlay.SetActive(false);
+
+            OndasTXT.text = "Onda: 1";
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ProximaOnda();
+        }
+
+
     }
 
     private void SetOndas()
@@ -110,8 +128,10 @@ public class inimigoManager : MonoBehaviour
         SetOndas();
         
         botaoPlay.SetActive(false);
-        
+
+        OndasTXT.text = "Onda: 1";
     }
+
 
     public List<GameObject> Embaralhar(List<GameObject> ondas)
     {
@@ -144,6 +164,8 @@ public class inimigoManager : MonoBehaviour
             inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
             SetOndas();
         }
+
+        OndasTXT.text = "Onda: " + onda;
     }
     IEnumerator spawn()
     {

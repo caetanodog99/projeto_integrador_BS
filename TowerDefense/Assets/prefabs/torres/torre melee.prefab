@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b461176f17db14b8d9d224ddc52901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  area: 2.8
-  dano: 5
-  cadencia: 0.7
+  area: 3
+  dano: 15
+  cadencia: 1.5
   valor: 50
   primeiro: 1
   ultimo: 0
@@ -206,18 +206,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   niveis:
-  - area: 3.1
-    dano: 6
-    cadencia: 0.7
+  - area: 3.4
+    dano: 17
+    cadencia: 1.2
     valor: 30
-  - area: 3.3
-    dano: 6
-    cadencia: 0.5
-    valor: 45
-  - area: 4
-    dano: 8
-    cadencia: 0.5
-    valor: 70
+  - area: 3.8
+    dano: 20
+    cadencia: 1.2
+    valor: 50
+  - area: 4.2
+    dano: 23
+    cadencia: 1
+    valor: 85
   areaTorre: {fileID: 305257534516184120}
 --- !u!1 &883455941976134603
 GameObject:

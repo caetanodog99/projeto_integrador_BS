@@ -18,17 +18,19 @@ public class areaTorre : MonoBehaviour
     {
         if (alvos.Count > 0)
         {
-            if (torre.primeiro)
+            if (this.torre.primeiro)
             {
                 float distanciaMin = Mathf.Infinity;
-                int indexMax = 0;
+                int indexMax = -1; 
                 GameObject primeiroAlvo = null;
 
                 foreach (GameObject alvo in alvos)
                 {
-                    int index = alvo.GetComponent<inimigo>().index;
-                    float distancia = alvo.GetComponent<inimigo>().distancia;
+                    var scriptInimigo = alvo.GetComponent<inimigo>();
+                    int index = scriptInimigo.index;
+                    float distancia = scriptInimigo.distancia;
 
+                    
                     if (index > indexMax || (index == indexMax && distancia < distanciaMin))
                     {
                         indexMax = index;
@@ -36,19 +38,21 @@ public class areaTorre : MonoBehaviour
                         primeiroAlvo = alvo;
                     }
                 }
-                torre.alvo = primeiroAlvo;
+                this.torre.alvo = primeiroAlvo;
             }
-            else if (torre.ultimo)
+            else if (this.torre.ultimo)
             {
-                float distanciaMax = -Mathf.Infinity;
-                int indexMin = 0;
+                float distanciaMax = -1f;
+                int indexMin = int.MaxValue; 
                 GameObject ultimoAlvo = null;
 
                 foreach (GameObject alvo in alvos)
                 {
-                    int index = alvo.GetComponent<inimigo>().index;
-                    float distancia = alvo.GetComponent<inimigo>().distancia;
+                    var scriptInimigo = alvo.GetComponent<inimigo>();
+                    int index = scriptInimigo.index;
+                    float distancia = scriptInimigo.distancia;
 
+                    
                     if (index < indexMin || (index == indexMin && distancia > distanciaMax))
                     {
                         indexMin = index;
@@ -56,35 +60,37 @@ public class areaTorre : MonoBehaviour
                         ultimoAlvo = alvo;
                     }
                 }
-                torre.alvo = ultimoAlvo;
+                this.torre.alvo = ultimoAlvo;
             }
-            else if (torre.forte)
+            else if (this.torre.forte)
             {
                 GameObject alvoForte = null;
-                float vidaMax = 0f;
+                float vidaMax = -1f;
 
                 foreach (GameObject alvo in alvos)
                 {
                     float vida = alvo.GetComponent<inimigo>().vida;
 
-                    if(vida < vidaMax)
+                    
+                    if (vida > vidaMax)
                     {
                         vidaMax = vida;
                         alvoForte = alvo;
                     }
                 }
-                torre.alvo = alvoForte;
+                this.torre.alvo = alvoForte;
             }
             else
             {
-                torre.alvo = alvos[0];
+                this.torre.alvo = alvos[0];
             }
 
         }
         else
         {
-            torre.alvo = null;
+            this.torre.alvo = null;
         }
+       // Debug.Log("alvo da torre: " + this.torre +" / "+ this.torre.alvo);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -635,7 +635,7 @@ MonoBehaviour:
     cadencia: 0.2
     valor: 50
   - area: 6
-    dano: 2
+    dano: 3
     cadencia: 0.1
     valor: 80
   areaTorre: {fileID: 7849059689885682790}
