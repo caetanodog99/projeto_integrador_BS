@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 5786477990341791594}
   - component: {fileID: 3177258451056340850}
   - component: {fileID: 7825662044419656789}
+  - component: {fileID: 4148628320264534069}
   m_Layer: 6
   m_Name: torre rapida
   m_TagString: torre
@@ -782,6 +783,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4203895751718601675, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7825662044419656789}
+    - targetCorrespondingSourceObject: {fileID: 4203895751718601675, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4148628320264534069}
   m_SourcePrefab: {fileID: 100100000, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
 --- !u!95 &7825662044419656789
 Animator:
@@ -804,3 +808,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4148628320264534069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613937952823163299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1322057833
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0

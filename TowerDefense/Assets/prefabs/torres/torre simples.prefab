@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 7899464261854141075}
   - component: {fileID: 4499463915418523118}
   - component: {fileID: 2419564518092670570}
+  - component: {fileID: 7019415633232573802}
   m_Layer: 6
   m_Name: torre simples
   m_TagString: torre
@@ -581,6 +582,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 999525376709772579, guid: 2741fa7d5c28f3f4780f02e3943b6595, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2419564518092670570}
+    - targetCorrespondingSourceObject: {fileID: 999525376709772579, guid: 2741fa7d5c28f3f4780f02e3943b6595, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7019415633232573802}
     - targetCorrespondingSourceObject: {fileID: 8570759074972783194, guid: 2741fa7d5c28f3f4780f02e3943b6595, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7597654864405610111}
@@ -606,6 +610,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7019415633232573802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360102733375499354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1985766489
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0
 --- !u!95 &7597654864405610111
 Animator:
   serializedVersion: 5

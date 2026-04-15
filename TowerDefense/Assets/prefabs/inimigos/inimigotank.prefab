@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 782023726521144391}
   - component: {fileID: 2461369333680313714}
   - component: {fileID: -200967323541042541}
+  - component: {fileID: 5642855902631372004}
   m_Layer: 0
   m_Name: inimigotank
   m_TagString: inimigo
@@ -129,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 40
   movespeed: 1.6
+  valor: 10
 --- !u!61 &-200967323541042541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -174,6 +176,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.12, y: 1.03}
   m_EdgeRadius: 0
+--- !u!114 &5642855902631372004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3037915009331699139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1660680701
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &7205633278726797086
 GameObject:
   m_ObjectHideFlags: 0

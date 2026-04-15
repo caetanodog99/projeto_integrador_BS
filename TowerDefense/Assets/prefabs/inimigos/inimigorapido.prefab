@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 4747523648726941469}
   - component: {fileID: 6163145481706702895}
   - component: {fileID: 8648605969786075523}
+  - component: {fileID: 6709100907406895726}
   m_Layer: 0
   m_Name: inimigorapido
   m_TagString: inimigo
@@ -213,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 10
   movespeed: 3.5
+  valor: 10
 --- !u!58 &8648605969786075523
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -248,3 +250,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5000002
+--- !u!114 &6709100907406895726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3820251396827772833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3509183614
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0

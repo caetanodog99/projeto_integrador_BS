@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 6139017610896161900}
   - component: {fileID: 2658338881208178424}
   - component: {fileID: 7032241467646717552}
+  - component: {fileID: 4130565858010194720}
   m_Layer: 6
   m_Name: torre sniper
   m_TagString: torre
@@ -580,6 +581,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8215332402113865557, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7032241467646717552}
+    - targetCorrespondingSourceObject: {fileID: 8215332402113865557, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4130565858010194720}
   m_SourcePrefab: {fileID: 100100000, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
 --- !u!95 &7032241467646717552
 Animator:
@@ -602,3 +606,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4130565858010194720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879394173876560064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3756263555
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours: []
+  ForceRemoteRenderTimeframe: 0
