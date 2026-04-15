@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class torreManager : MonoBehaviour
 {
-    [Header("Torres disponíveis:")]
+
     [SerializeField] private GameObject torreSimples;
     [SerializeField] private GameObject torreSniper;
     [SerializeField] private GameObject torreMelee;
@@ -32,7 +33,7 @@ public class torreManager : MonoBehaviour
 
 
 
-    void Update()
+    void FixedUpdateNetwork()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

@@ -1,20 +1,19 @@
+using Fusion;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class inimigo : MonoBehaviour
+public class inimigo : NetworkBehaviour
 {
-    [SerializeField] public int vida = 2020;
-    [SerializeField] private float movespeed = 2f;
-    [SerializeField] private int valor = 10;
+    [Networked] public int vida { get; set; } = 20;
+    [Networked] private float movespeed { get; set; } = 2f;
+    [Networked] private int valor { get; set; } = 10;
+
+
+    [Networked] public int index { get; set; } = 0;
 
     private Rigidbody2D rb;
-
     private Transform checkpoint;
 
-    [NonSerialized] public int index = 0;
     [NonSerialized] public float distancia = 0;
 
     void Awake()
@@ -22,52 +21,86 @@ public class inimigo : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+
+    public override void Spawned()
     {
-        checkpoint = inimigoManager.main.checkpoints[index];
+        if (inimigoManager.main != null && inimigoManager.main.checkpoints.Length > 0)
+        {
+            checkpoint = inimigoManager.main.checkpoints[index];
+        }
     }
 
-    void Update()
+    public override void FixedUpdateNetwork()
     {
+
+        if (Object.HasStateAuthority)
+        {
+            MoverInimigo();
+        }
+    }
+
+    private void MoverInimigo()
+    {
+        if (index >= inimigoManager.main.checkpoints.Length) return;
+
         checkpoint = inimigoManager.main.checkpoints[index];
-        distancia = Vector2.Distance(transform.position, inimigoManager.main.checkpoints[index].transform.position);
-        if (Vector2.Distance(checkpoint.transform.position, transform.position) <= 0.1f)
+        distancia = Vector2.Distance(transform.position, checkpoint.position);
+
+
+        if (distancia <= 0.2f)
         {
             index++;
+
+
             if (index >= inimigoManager.main.checkpoints.Length)
             {
-                jogador.main.ReceberDano(vida);
-                Destroy(gameObject);
 
+                if (jogador.main != null) jogador.main.ReceberDano(vida);
+
+
+                Runner.Despawn(Object);
+                return;
             }
+
+            checkpoint = inimigoManager.main.checkpoints[index];
         }
 
-        
-    }
 
-
-    void FixedUpdate()
-    {
         Vector2 direction = (checkpoint.position - transform.position).normalized;
-
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        var rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, angle), movespeed * 5f);
 
-        float rotationSpeed = movespeed * 3f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
 
-        rb.velocity = direction * movespeed;
+        transform.position = Vector2.MoveTowards(transform.position, checkpoint.position, movespeed * Runner.DeltaTime);
     }
+
 
     public void ReceberDano(int dano)
     {
+        if (Object.HasStateAuthority)
+        {
+            AplicarDano(dano);
+        }
+        else
+        {
+            RPC_SolicitarDano(dano);
+        }
+    }
 
-        vida = vida-dano;
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    private void RPC_SolicitarDano(int dano)
+    {
+        AplicarDano(dano);
+    }
+
+    private void AplicarDano(int dano)
+    {
+        vida -= dano;
 
         if (vida <= 0)
         {
-            jogador.main.creditos += valor;
-            Destroy(gameObject);
+            if (jogador.main != null) jogador.main.creditos += valor;
+            Runner.Despawn(Object);
         }
     }
 }

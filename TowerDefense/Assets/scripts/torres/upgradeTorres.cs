@@ -1,9 +1,10 @@
+using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class upgradeTorres : MonoBehaviour
+public class upgradeTorres : NetworkBehaviour
 {
     [System.Serializable]
     class Nivel

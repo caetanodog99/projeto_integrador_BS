@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &20852725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -22.039}
+  m_AnchoredPosition: {x: 0, y: -22.03894}
   m_SizeDelta: {x: 0, y: -386.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &20852726
@@ -227,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 53062089}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.62, y: -2.02, z: 0}
+  m_LocalPosition: {x: -1.357, y: -1.981, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -321,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 76973147}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.23, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0.425, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -725,7 +725,7 @@ Transform:
   m_GameObject: {fileID: 151647598}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7, y: -0.32, z: 0}
+  m_LocalPosition: {x: 3.972, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2193,7 +2193,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a38fc72d70ae7cc4cbbfb8308179e31c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2598,7 +2598,7 @@ Transform:
   m_GameObject: {fileID: 433074368}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.68, y: -2.97, z: 0}
+  m_LocalPosition: {x: 4.011, y: -2.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3373,7 +3373,7 @@ Transform:
   m_GameObject: {fileID: 530297636}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6, y: 1.72, z: 0}
+  m_LocalPosition: {x: 3.843, y: 1.767, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8260,7 +8260,7 @@ Transform:
   m_GameObject: {fileID: 1418288443}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.31, y: -2.86, z: 0}
+  m_LocalPosition: {x: 0.456, y: -2.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10107,7 +10107,7 @@ Transform:
   m_GameObject: {fileID: 1750246863}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.94, y: -0.24, z: 0}
+  m_LocalPosition: {x: -4.823, y: -0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11329,7 +11329,7 @@ Transform:
   m_GameObject: {fileID: 1954300656}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.61, y: 1.94, z: 0}
+  m_LocalPosition: {x: -1.513, y: 2.012, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11452,7 +11452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2026500665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11660,14 +11660,14 @@ MonoBehaviour:
   inimigoRapido: {fileID: 3820251396827772833, guid: 262a3f943655e644e9e6fc0fa2ce45df, type: 3}
   inimigoTank: {fileID: 3037915009331699139, guid: d9231859b462a3c4196a96c86b12fd29, type: 3}
   inimigoNormal: {fileID: 7708177426395724953, guid: b03ff984bb763d94e98e791a38708cfb, type: 3}
-  onda: 1
-  inimigosTotal: 6
-  inimigosTotalSpawn: 0.2
-  SpawnDelayMax: 1
-  SpawnDelayMin: 0.75
-  normalSpawn: 0.5
-  rapidoSpawn: 0.3
-  tankSpawn: 0.2
+  _onda: 1
+  _inimigosTotal: 6
+  _inimigosTotalSpawn: 0.2
+  _SpawnDelayMax: 1
+  _SpawnDelayMin: 0.75
+  _normalSpawn: 0.5
+  _rapidoSpawn: 0.3
+  _tankSpawn: 0.2
   painelOndas: {fileID: 1165933348}
   painelVitoria: {fileID: 1401791295}
   OndasTXT: {fileID: 1554785743}
@@ -11709,7 +11709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cc378745319a0489bd38d13c05484a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 120
+  _vida: 0
   creditos: 100
   vidaTexto: {fileID: 340218258}
   creditosTexto: {fileID: 1820705336}
@@ -11744,7 +11744,9 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 2048532895}
+  - {fileID: 2048532897}
   ForceRemoteRenderTimeframe: 0
 --- !u!1 &2056155770
 GameObject:

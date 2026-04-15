@@ -1,9 +1,10 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Torre : MonoBehaviour
+public class Torre : NetworkBehaviour
 {
     [Header("Especificações da Torre:")]
     public float area = 8f;
@@ -16,8 +17,7 @@ public class Torre : MonoBehaviour
     public bool ultimo = false;
     public bool forte = false;
 
-    [Header("Efeitos:")]
-    [SerializeField] GameObject efeitoDisparo;  
+    [SerializeField] GameObject efeitoDisparo;
 
     public GameObject alvo;
     private float recarga = 0f;
@@ -28,7 +28,7 @@ public class Torre : MonoBehaviour
         animator = GetComponent<Animator>(); 
     }
 
-    void Update()
+    void FixedUpdateNetwork()
     {
 
         if (alvo)

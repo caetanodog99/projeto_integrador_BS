@@ -1,13 +1,14 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class jogador : MonoBehaviour
+public class jogador : NetworkBehaviour
 {
     public static jogador main;
-    [SerializeField] private int vida = 100;
+    [Networked][SerializeField] public int vida { get; set; } = 120;
     public int creditos = 100;
     [SerializeField] private TextMeshProUGUI vidaTexto;
     [SerializeField] private TextMeshProUGUI creditosTexto;
@@ -19,7 +20,7 @@ public class jogador : MonoBehaviour
     }
 
     
-    void Update()
+    void FixedUpdateNetwork()
     {
         vidaTexto.text = "Vida: " + vida.ToString();
         creditosTexto.text = "Créditos: " + creditos.ToString();

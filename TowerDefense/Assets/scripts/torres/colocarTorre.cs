@@ -1,36 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
+using Fusion;
 using UnityEngine;
 
-public class colocarTorre : MonoBehaviour
+public class colocarTorre : NetworkBehaviour
 {
     [SerializeField] private SpriteRenderer spriteArea;
     [SerializeField] private CircleCollider2D colliderArea;
     [SerializeField] private Color cinza;
     [SerializeField] private Color vermelho;
 
-
-    [SerializeField] public bool colocando = true;
-    private bool restrito = false;
+    [Networked] public NetworkBool colocando { get; set; } = true;
+    [Networked] private NetworkBool restrito { get; set; } = false;
 
     private Torre torre;
-
     private float tempoUltimoToque = 0f;
     private float limiteTempoToqueDuplo = 0.25f;
 
     void Awake()
     {
-        torre= GetComponent<Torre>();
+        torre = GetComponent<Torre>();
         colliderArea.enabled = false;
         spriteArea.color = cinza;
     }
 
-    void Update()
+
+    public override void Render()
     {
-        //Debug.Log("ta restrito? " + restrito);
-       
+
+        if (Object.HasInputAuthority && colocando)
+        {
+            MoverLocalmente();
+        }
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+
+        if (!Object.HasInputAuthority) return;
+
         bool toqueDuploDetectado = false;
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
@@ -41,46 +47,54 @@ public class colocarTorre : MonoBehaviour
             tempoUltimoToque = Time.time;
         }
 
-        if (colocando)
+
+        if ((Input.GetMouseButtonDown(1) || toqueDuploDetectado) && colocando)
         {
-            Vector2 posicaoInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (Input.touchCount > 0)
-            {
-                posicaoInput = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-            }
-
-            transform.position = posicaoInput;
+            RPC_SolicitarPosicionamento(transform.position);
         }
 
-       
-        if (Input.GetMouseButtonDown(1) || toqueDuploDetectado && torre.valor <= jogador.main.creditos )
+
+        spriteArea.color = restrito ? vermelho : cinza;
+    }
+
+    private void MoverLocalmente()
+    {
+        Vector2 posicaoInput = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (Input.touchCount > 0)
         {
-            if (restrito == false)
-            {
-                //Debug.Log("pode colocar");
-                colliderArea.enabled = true;
-                colocando = false;
-                spriteArea.enabled = false;
-                jogador.main.creditos = jogador.main.creditos - torre.valor;
-                //Debug.Log("grana: " +jogador.main.creditos);
-                GetComponent<colocarTorre>().enabled = false;
-            }
+            posicaoInput = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
         }
 
-        if (restrito)
+        transform.position = posicaoInput;
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RPC_SolicitarPosicionamento(Vector3 posicaoFinal)
+    {
+
+        if (!restrito && jogador.main.creditos >= torre.valor)
         {
-            spriteArea.color = vermelho;
-        }
-        else
-        {
-            spriteArea.color = cinza;
+            transform.position = posicaoFinal;
+            colocando = false;
+            restrito = false;
+            colliderArea.enabled = true;
+            spriteArea.enabled = false;
+
+
+            jogador.main.creditos -= torre.valor;
+
+
+            this.enabled = false;
         }
     }
 
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "caminho" || collision.gameObject.tag == "torre" && colocando)
+        if (!Object.HasInputAuthority) return;
+        if (collision.CompareTag("caminho") || collision.CompareTag("torre"))
         {
             restrito = true;
         }
@@ -88,7 +102,8 @@ public class colocarTorre : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "caminho" || collision.gameObject.tag == "torre" && colocando)
+        if (!Object.HasInputAuthority) return;
+        if (collision.CompareTag("caminho") || collision.CompareTag("torre"))
         {
             restrito = false;
         }

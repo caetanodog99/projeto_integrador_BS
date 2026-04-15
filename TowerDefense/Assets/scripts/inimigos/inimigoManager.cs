@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using JetBrains.Annotations;
+using Fusion;
 using TMPro;
+using UnityEngine;
+using System.Collections.Generic;
 
-public class inimigoManager : MonoBehaviour
+public class inimigoManager : NetworkBehaviour
 {
     public static inimigoManager main;
     public Transform spawnpoint;
@@ -16,164 +13,142 @@ public class inimigoManager : MonoBehaviour
     [SerializeField] private GameObject inimigoTank;
     [SerializeField] private GameObject inimigoNormal;
 
-    [SerializeField] private int onda = 1;
-    [SerializeField] private int inimigosTotal = 6;
-    [SerializeField] private float inimigosTotalSpawn = 0.2f;
-    [SerializeField] private float SpawnDelayMax = 1f;
-    [SerializeField] private float SpawnDelayMin = 0.75f;
+    [Networked][SerializeField] private int onda { get; set; } = 1;
+    [Networked][SerializeField] private int inimigosTotal { get; set; } = 6;
+    [Networked][SerializeField] private float inimigosTotalSpawn { get; set; } = 0.2f;
+    [Networked][SerializeField] private float SpawnDelayMax { get; set; } = 1f;
+    [Networked][SerializeField] private float SpawnDelayMin { get; set; } = 0.75f;
 
-    [SerializeField] private float normalSpawn = 0.5f;
-    [SerializeField] private float rapidoSpawn = 0.3f;
-    [SerializeField] private float tankSpawn = 0.2f;
+    [Networked][SerializeField] private float normalSpawn { get; set; } = 0.5f;
+    [Networked][SerializeField] private float rapidoSpawn { get; set; } = 0.3f;
+    [Networked][SerializeField] private float tankSpawn { get; set; } = 0.2f;
 
     [SerializeField] private GameObject painelOndas;
-
     [SerializeField] public GameObject painelVitoria;
-
     [SerializeField] private TextMeshProUGUI OndasTXT;
-
     [SerializeField] public GameObject botaoPlay;
 
-    private bool ondaConcluida = false;
-    private bool ondaInterrompida = false;
-    private List<GameObject> ondas = new List<GameObject>();
-    private int inimigoFalta;
+    [Networked] public NetworkBool ondaConcluida { get; set; }
+    [Networked] public NetworkBool jogoIniciado { get; set; }
+    [Networked] private TickTimer spawnTimer { get; set; }
 
-    private int normalTotal;
-    private int rapidoTotal;
-    private int tankTotal;
+    private int inimigosSpawnadosNestaOnda = 0;
+    private List<GameObject> listaOrdemSpawn = new List<GameObject>();
 
     void Awake()
     {
         main = this;
     }
 
-    void Start()
+    public override void FixedUpdateNetwork()
     {
-        
+        if (OndasTXT != null) OndasTXT.text = "Onda: " + onda;
+
+        if (Object.HasStateAuthority)
+        {
+            LogicaDeOndasServidor();
+        }
+
+        if (painelVitoria != null) painelVitoria.SetActive(onda == 11);
+        if (botaoPlay != null) botaoPlay.SetActive(!jogoIniciado);
     }
 
-    void Update()
+    private void LogicaDeOndasServidor()
     {
         GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
 
-        if (!ondaInterrompida && ondaConcluida && inimigos.Length == 0)
+        if (jogoIniciado && ondaConcluida && inimigos.Length == 0 && onda < 11)
         {
-            jogador.main.creditos += 15 + (5 * onda);
-            ondaInterrompida = true;
-            painelOndas.SetActive(true);
+            if (painelOndas != null && !painelOndas.activeSelf)
+            {
+                if (jogador.main != null) jogador.main.creditos += 15 + (5 * onda);
+                RPC_AtivarPainelOndas(true);
+            }
         }
 
-        if(onda == 11)
+        if (jogoIniciado && !ondaConcluida && spawnTimer.ExpiredOrNotRunning(Runner))
         {
-            Time.timeScale = 0f;
-            painelVitoria.SetActive(true);
-        }
+            if (listaOrdemSpawn.Count == 0) PrepararOnda();
 
-        if (Input.GetKeyDown(KeyCode.Space) && botaoPlay.activeSelf)
+            if (inimigosSpawnadosNestaOnda < listaOrdemSpawn.Count)
+            {
+                Runner.Spawn(listaOrdemSpawn[inimigosSpawnadosNestaOnda], spawnpoint.position, Quaternion.identity);
+                inimigosSpawnadosNestaOnda++;
+
+                float delay = UnityEngine.Random.Range(SpawnDelayMin, SpawnDelayMax);
+                spawnTimer = TickTimer.CreateFromSeconds(Runner, delay);
+            }
+            else
+            {
+                ondaConcluida = true;
+            }
+        }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RPC_SolicitarInicio()
+    {
+        if (!jogoIniciado)
         {
-            SetOndas();
-
-            botaoPlay.SetActive(false);
-
-            OndasTXT.text = "Onda: 1";
+            jogoIniciado = true;
+            PrepararOnda();
+            RPC_AtivarPainelOndas(false);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        else if (ondaConcluida)
         {
             ProximaOnda();
         }
-
-
     }
 
-    private void SetOndas()
+    public void BotaoPlay()
     {
-       
-        normalTotal = Mathf.RoundToInt(inimigosTotal * (normalSpawn + tankTotal));
-        rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
-        tankTotal = 0;
-
-        if (onda % 1 == 0)
-        {
-            tankTotal = Mathf.RoundToInt(inimigosTotal * tankSpawn);
-            normalTotal = Mathf.RoundToInt(inimigosTotal * normalSpawn);
-        }
-
-        inimigoFalta = normalTotal + rapidoTotal + tankTotal;
-        inimigosTotal = inimigoFalta;
-
-        ondas = new List<GameObject>();
-
-        for (int i = 0; i < normalTotal; i++)
-        {
-            ondas.Add(inimigoNormal);
-        }
-        for (int i = 0; i < rapidoTotal; i++)
-        {
-            ondas.Add(inimigoRapido);
-        }
-        for (int i = 0; i < tankTotal; i++)
-        {
-            ondas.Add(inimigoTank);
-        }
-
-        ondas = Embaralhar(ondas);
-
-        StartCoroutine(spawn());
-
-    }
-   public void BotaoPlay()
-    {
-        SetOndas();
-        
-        botaoPlay.SetActive(false);
-
-        OndasTXT.text = "Onda: 1";
+        RPC_SolicitarInicio();
     }
 
-
-    public List<GameObject> Embaralhar(List<GameObject> ondas)
+    private void PrepararOnda()
     {
-        List<GameObject> tempo = new List<GameObject>();
-        List<GameObject> resultado = new List<GameObject>();
-        tempo.AddRange(ondas);
+        int tankTotal = (onda >= 1) ? Mathf.RoundToInt(inimigosTotal * tankSpawn) : 0;
+        int normalTotal = Mathf.RoundToInt(inimigosTotal * normalSpawn);
+        int rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
 
-        for (int i = 0; i < ondas.Count; i++)
-        {
-            int index = Random.Range(0, tempo.Count - 1);
-            resultado.Add(tempo[index]);
-            tempo.RemoveAt(index);
-        }
+        listaOrdemSpawn.Clear();
+        for (int i = 0; i < normalTotal; i++) listaOrdemSpawn.Add(inimigoNormal);
+        for (int i = 0; i < rapidoTotal; i++) listaOrdemSpawn.Add(inimigoRapido);
+        for (int i = 0; i < tankTotal; i++) listaOrdemSpawn.Add(inimigoTank);
 
-        return resultado;
+        listaOrdemSpawn = Embaralhar(listaOrdemSpawn);
+
+        inimigosSpawnadosNestaOnda = 0;
+        ondaConcluida = false;
+        spawnTimer = TickTimer.CreateFromSeconds(Runner, 1f);
     }
 
     public void ProximaOnda()
     {
-        GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
-
-        painelOndas.SetActive(false);
-
-        if (ondaConcluida && inimigos.Length == 0)
+        if (Object.HasStateAuthority && ondaConcluida)
         {
-            Debug.Log("onda "+ onda +" concluida!");
             onda++;
-            ondaConcluida = false;
-            ondaInterrompida = false;
             inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
-            SetOndas();
+            PrepararOnda();
+            RPC_AtivarPainelOndas(false);
         }
-
-        OndasTXT.text = "Onda: " + onda;
     }
-    IEnumerator spawn()
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_AtivarPainelOndas(bool ativo)
     {
-        for (int i = 0; i < ondas.Count; i++)
+        if (painelOndas != null) painelOndas.SetActive(ativo);
+    }
+
+    public List<GameObject> Embaralhar(List<GameObject> lista)
+    {
+        for (int i = 0; i < lista.Count; i++)
         {
-            Instantiate(ondas[i], spawnpoint.position, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(SpawnDelayMin, SpawnDelayMax));
+            GameObject temp = lista[i];
+            int randomIndex = UnityEngine.Random.Range(i, lista.Count);
+            lista[i] = lista[randomIndex];
+            lista[randomIndex] = temp;
         }
-        ondaConcluida = true;
+        return lista;
     }
 }
