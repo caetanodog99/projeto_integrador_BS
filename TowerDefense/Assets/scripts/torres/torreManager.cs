@@ -1,3 +1,4 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class torreManager : MonoBehaviour
+public class torreManager : NetworkBehaviour
 {
     [Header("Torres disponíveis:")]
     [SerializeField] private GameObject torreSimples;
@@ -26,7 +27,7 @@ public class torreManager : MonoBehaviour
 
 
     private GameObject torreSelecionada;
-    private GameObject colocandoTorre;
+    private NetworkObject colocandoTorre;
 
     [SerializeField] private GameObject painelDinheiro;
 
@@ -111,7 +112,7 @@ public class torreManager : MonoBehaviour
         if (creditosJogador >= 50)
         {
             LimparSelecao();
-            colocandoTorre = Instantiate(torre);
+            colocandoTorre = Runner.Spawn(torre);
         }
         else
         {

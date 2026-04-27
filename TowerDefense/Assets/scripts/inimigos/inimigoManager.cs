@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using JetBrains.Annotations;
 using TMPro;
+using Fusion;
 
-public class inimigoManager : MonoBehaviour
+public class inimigoManager : NetworkBehaviour
 {
     public static inimigoManager main;
     public Transform spawnpoint;
@@ -66,7 +67,7 @@ public class inimigoManager : MonoBehaviour
 
         if(onda == 11)
         {
-            Time.timeScale = 0f;
+            //Time.timeScale = 0f;
             painelVitoria.SetActive(true);
         }
 
@@ -171,7 +172,7 @@ public class inimigoManager : MonoBehaviour
     {
         for (int i = 0; i < ondas.Count; i++)
         {
-            Instantiate(ondas[i], spawnpoint.position, Quaternion.identity);
+            Runner.Spawn(ondas[i], spawnpoint.position, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(SpawnDelayMin, SpawnDelayMax));
         }
         ondaConcluida = true;

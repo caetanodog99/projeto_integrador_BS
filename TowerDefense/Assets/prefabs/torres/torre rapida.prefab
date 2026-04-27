@@ -626,19 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9a8697d70e45d4693e10c59054eebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  niveis:
-  - area: 5
-    dano: 1
-    cadencia: 0.2
-    valor: 25
-  - area: 5.5
-    dano: 2
-    cadencia: 0.2
-    valor: 50
-  - area: 6
-    dano: 3
-    cadencia: 0.1
-    valor: 80
+  niveis: []
   areaTorre: {fileID: 7849059689885682790}
 --- !u!1 &7949044310112638570
 GameObject:
@@ -824,5 +812,8 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 5146172573016904134}
+  - {fileID: 3177258451056340850}
+  - {fileID: 7849059689885682790}
   ForceRemoteRenderTimeframe: 0

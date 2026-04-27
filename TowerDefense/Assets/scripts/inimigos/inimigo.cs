@@ -1,10 +1,11 @@
+using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class inimigo : MonoBehaviour
+public class inimigo : NetworkBehaviour
 {
     [SerializeField] public int vida = 2020;
     [SerializeField] private float movespeed = 2f;
@@ -40,9 +41,7 @@ public class inimigo : MonoBehaviour
                 Destroy(gameObject);
 
             }
-        }
-
-        
+        }     
     }
 
 

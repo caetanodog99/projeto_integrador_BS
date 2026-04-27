@@ -1,11 +1,12 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class colocarTorre : MonoBehaviour
-{
+public class colocarTorre : NetworkBehaviour
+    {
     [SerializeField] private SpriteRenderer spriteArea;
     [SerializeField] private CircleCollider2D colliderArea;
     [SerializeField] private Color cinza;

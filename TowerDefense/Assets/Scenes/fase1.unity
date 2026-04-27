@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &20852725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -22.039}
+  m_AnchoredPosition: {x: 0, y: -22.03894}
   m_SizeDelta: {x: 0, y: -386.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &20852726
@@ -2193,7 +2193,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a38fc72d70ae7cc4cbbfb8308179e31c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5328,7 +5328,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2048532897}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: jogador, Assembly-CSharp
         m_MethodName: TentarNovamente
         m_Mode: 1
@@ -6072,8 +6072,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1289, y: 621}
-  m_SizeDelta: {x: -2657.526, y: -1296.1}
+  m_AnchoredPosition: {x: -1283.2, y: 560.6}
+  m_SizeDelta: {x: -2657.526, y: -1592.018}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054148649
 MonoBehaviour:
@@ -6884,7 +6884,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2048532897}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: jogador, Assembly-CSharp
         m_MethodName: MenuInicial
         m_Mode: 1
@@ -7126,7 +7126,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 138
+    m_FontSize: 210
     m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 10
@@ -8343,11 +8343,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 130
+    m_FontSize: 145
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 130
+    m_MaxSize: 145
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 0
@@ -11452,7 +11452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2026500665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11744,7 +11744,9 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 2048532895}
+  - {fileID: 2048532896}
   ForceRemoteRenderTimeframe: 0
 --- !u!1 &2056155770
 GameObject:

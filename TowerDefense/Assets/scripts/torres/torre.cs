@@ -42,8 +42,6 @@ public class Torre : MonoBehaviour
 
                 //transform.right = alvo.transform.position - transform.position;
 
-                
-
                 alvo.GetComponent<inimigo>().ReceberDano(dano);
                 recarga = 0f;
                 StartCoroutine(DisparoEfeito());

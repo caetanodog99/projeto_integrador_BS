@@ -15,7 +15,7 @@ public class listaPlayers : MonoBehaviour
 
     void AtualizarPlacar()
     {
-        string placar = "=== Jogadores ===\n";
+        string placar = "Jogadores na sessão: \n";
         NetworkObject[] todosObjetos = FindObjectsOfType<NetworkObject>();
         int numeroPlayer = 1;
 

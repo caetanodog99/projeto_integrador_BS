@@ -1,10 +1,11 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class areaTorre : MonoBehaviour
+public class areaTorre : NetworkBehaviour
 {
     [SerializeField] private Torre torre;
     private List<GameObject> alvos = new List<GameObject>();
