@@ -6,8 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class torreManager : NetworkBehaviour
+public class torreManager : MonoBehaviour
 {
+    public static torreManager main;
+
     [Header("Torres disponíveis:")]
     [SerializeField] private GameObject torreSimples;
     [SerializeField] private GameObject torreSniper;
@@ -27,7 +29,7 @@ public class torreManager : NetworkBehaviour
 
 
     private GameObject torreSelecionada;
-    private NetworkObject colocandoTorre;
+    private GameObject colocandoTorre;
 
     [SerializeField] private GameObject painelDinheiro;
 
@@ -112,7 +114,7 @@ public class torreManager : NetworkBehaviour
         if (creditosJogador >= 50)
         {
             LimparSelecao();
-            colocandoTorre = Runner.Spawn(torre);
+            colocandoTorre = Instantiate(torre);
         }
         else
         {
@@ -120,6 +122,8 @@ public class torreManager : NetworkBehaviour
         }
 
     }
+
+    
 
     IEnumerator SemDinheiro()
     {

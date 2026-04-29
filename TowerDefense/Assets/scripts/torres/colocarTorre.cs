@@ -13,7 +13,7 @@ public class colocarTorre : NetworkBehaviour
     [SerializeField] private Color vermelho;
 
 
-    [SerializeField] public bool colocando = true;
+    [SerializeField] public bool colocando { get; set; } = true;
     private bool restrito = false;
 
     private Torre torre;
@@ -54,18 +54,24 @@ public class colocarTorre : NetworkBehaviour
             transform.position = posicaoInput;
         }
 
-       
+    
+
         if (Input.GetMouseButtonDown(1) || toqueDuploDetectado && torre.valor <= jogador.main.creditos )
         {
             if (restrito == false)
             {
                 //Debug.Log("pode colocar");
                 colliderArea.enabled = true;
-                colocando = false;
+                colocando = false;                
                 spriteArea.enabled = false;
                 jogador.main.creditos = jogador.main.creditos - torre.valor;
                 //Debug.Log("grana: " +jogador.main.creditos);
                 GetComponent<colocarTorre>().enabled = false;
+
+                //if (!GameMode.Host)
+                //{
+                //    Instantiate(torre);
+                //}
             }
         }
 
@@ -78,7 +84,7 @@ public class colocarTorre : NetworkBehaviour
             spriteArea.color = cinza;
         }
     }
-
+ 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "caminho" || collision.gameObject.tag == "torre" && colocando)

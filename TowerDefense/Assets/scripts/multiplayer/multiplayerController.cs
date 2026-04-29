@@ -5,6 +5,7 @@ using Fusion;
 using Fusion.Sockets;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
@@ -15,19 +16,28 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     public GameObject playerPrefab;
     public GameObject TelaEntrarSala;
 
-    public async void EntrarSala()
+    private NetworkRunner _runner;
+
+    async void StartGame(GameMode mode)
     {
+        _runner = gameObject.AddComponent<NetworkRunner>();
+        _runner.ProvideInput = true;
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid)
+        {
+            sceneInfo.AddSceneRef(scene, LoadSceneMode.Additive);
+        }
+
         if (string.IsNullOrEmpty(nomeSala.text))
         {
 
             erro.text = "O nome da sala não pode ser vazio!";
             return;
         }
-        runner = gameObject.AddComponent<NetworkRunner>();
-        runner.ProvideInput = true;
-        await runner.StartGame(new StartGameArgs()
+        await _runner.StartGame(new StartGameArgs()
         {
-            GameMode = GameMode.Shared,
+            GameMode = mode,
             SessionName = nomeSala.text,
             Scene = SceneRef.FromIndex(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex),
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
@@ -36,9 +46,21 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     }
 
 
+    public async void CriarSala()
+    {
+        StartGame(GameMode.Host);
+    }
+
+    public async void EntrarSala()
+    {
+        StartGame(GameMode.Client);
+    }
+
+
+
     public void OnConnectedToServer(NetworkRunner runner)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
@@ -68,42 +90,42 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
     {
-        //throw new NotImplementedException();
+       throw new NotImplementedException();
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnSceneLoadDone(NetworkRunner runner)
@@ -122,7 +144,7 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnSceneLoadStart(NetworkRunner runner)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
@@ -132,7 +154,7 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        //throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)

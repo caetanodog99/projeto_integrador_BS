@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vida: 10
-  movespeed: 3.5
+  velocidade: 5
   valor: 10
 --- !u!58 &8648605969786075523
 CircleCollider2D:

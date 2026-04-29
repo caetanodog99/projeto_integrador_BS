@@ -4,22 +4,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class upgradeTorres : NetworkBehaviour
+public class upgradeTorres : MonoBehaviour
 {
     [System.Serializable]
     class Nivel
     {
-        [Networked]public float area { get; set; } = 6f;
-        [Networked] public int dano { get; set; } = 10;
-        [Networked] public float cadencia { get; set; } = 1.1f;
-        [Networked] public int valor { get; set; } = 100;
+       public float area = 6f;
+       public int dano = 10;
+       public float cadencia  = 1.1f;
+       public int valor = 100;
     }
 
     [SerializeField]private Nivel[] niveis = new Nivel[3];
-    [Networked]
-    public int nivelAtual { get; set; } = 0;
+    public int nivelAtual = 0;
     [NonSerialized] public string valorAtual;
-
     private Torre torre;
     [SerializeField]private areaTorre areaTorre;
 
@@ -28,34 +26,38 @@ public class upgradeTorres : NetworkBehaviour
     void Awake()
     {
         torre = GetComponent<Torre>();
-        valorAtual = niveis[0].valor.ToString();
+        valorAtual = "C$ " + niveis[0].valor.ToString();
 
     }
 
     
     public void Upgrade()
     {
-        if (nivelAtual < niveis.Length && niveis[nivelAtual].valor < jogador.main.creditos)
+        if (nivelAtual < niveis.Length)
         {
-            torre.area = niveis[nivelAtual].area;
-            torre.dano = niveis[nivelAtual].dano;
-            torre.cadencia = niveis[nivelAtual].cadencia;
-            areaTorre.AtualizarArea();
-
-            jogador.main.creditos = niveis[nivelAtual].valor;
-
-            nivelAtual++;
-
-            if(nivelAtual >= niveis.Length)
+            if (niveis[nivelAtual].valor < jogador.main.creditos)
             {
-                valorAtual = "MAX";
-            }
-            else
-            {
-                valorAtual = niveis[nivelAtual].valor.ToString();
-            }
+                torre.area = niveis[nivelAtual].area;
+                torre.dano = niveis[nivelAtual].dano;
+                torre.cadencia = niveis[nivelAtual].cadencia;
+                areaTorre.AtualizarArea();
 
-            Debug.Log("Upou de nível!");
+                jogador.main.creditos = jogador.main.creditos - niveis[nivelAtual].valor;
+
+                nivelAtual++;
+
+                if (nivelAtual >= niveis.Length)
+                {
+                    valorAtual = "MAX";
+                }
+                else
+                {
+                    valorAtual = niveis[nivelAtual].valor.ToString();
+                }
+
+                Debug.Log("Upou de nível!");
+            }
+            
         }
         else
         {

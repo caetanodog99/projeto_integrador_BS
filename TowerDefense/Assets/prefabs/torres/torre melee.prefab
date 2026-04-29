@@ -131,7 +131,6 @@ MonoBehaviour:
   colliderArea: {fileID: 1911154344737585501}
   cinza: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.29803923}
   vermelho: {r: 0.7075472, g: 0.19691172, b: 0.19691172, a: 0.27058825}
-  colocando: 1
 --- !u!58 &3591839854061532113
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -206,7 +205,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9a8697d70e45d4693e10c59054eebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  niveis: []
+  niveis:
+  - area: 4
+    dano: 15
+    cadencia: 1.1
+    valor: 30
+  - area: 4.5
+    dano: 17
+    cadencia: 0.8
+    valor: 50
+  - area: 5
+    dano: 20
+    cadencia: 0.5
+    valor: 80
+  nivelAtual: 0
   areaTorre: {fileID: 305257534516184120}
 --- !u!1 &883455941976134603
 GameObject:
@@ -612,6 +624,5 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 9017163821520474097}
-  - {fileID: 4282173345878755493}
   - {fileID: 305257534516184120}
   ForceRemoteRenderTimeframe: 0

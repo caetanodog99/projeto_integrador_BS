@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Fusion;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class jogador : MonoBehaviour
+public class jogador : NetworkBehaviour
 {
     public static jogador main;
-    [SerializeField] private int vida = 100;
+    [Networked][SerializeField] private int vida { get; set; } = 100;
     public int creditos = 100;
     [SerializeField] private TextMeshProUGUI vidaTexto;
     [SerializeField] private TextMeshProUGUI creditosTexto;

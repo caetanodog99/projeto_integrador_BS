@@ -7,8 +7,8 @@ using UnityEngine.Rendering;
 
 public class inimigo : NetworkBehaviour
 {
-    [SerializeField] public int vida = 2020;
-    [SerializeField] private float movespeed = 2f;
+    [SerializeField] public int vida = 20;
+    [SerializeField] private float velocidade = 2f;
     [SerializeField] private int valor = 10;
 
     private Rigidbody2D rb;
@@ -44,7 +44,6 @@ public class inimigo : NetworkBehaviour
         }     
     }
 
-
     void FixedUpdate()
     {
         Vector2 direction = (checkpoint.position - transform.position).normalized;
@@ -52,10 +51,10 @@ public class inimigo : NetworkBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         var rotation = Quaternion.Euler(0f, 0f, angle);
 
-        float rotationSpeed = movespeed * 3f;
+        float rotationSpeed = velocidade * 3f;
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
 
-        rb.velocity = direction * movespeed;
+        rb.velocity = direction * velocidade;
     }
 
     public void ReceberDano(int dano)
