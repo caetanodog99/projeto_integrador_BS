@@ -60,6 +60,7 @@ public class colocarTorre : NetworkBehaviour
         {
             if (restrito == false)
             {
+
                 //Debug.Log("pode colocar");
                 colliderArea.enabled = true;
                 colocando = false;                
@@ -68,10 +69,11 @@ public class colocarTorre : NetworkBehaviour
                 //Debug.Log("grana: " +jogador.main.creditos);
                 GetComponent<colocarTorre>().enabled = false;
 
-                //if (!GameMode.Host)
+                //if ()
                 //{
                 //    Instantiate(torre);
                 //}
+
             }
         }
 

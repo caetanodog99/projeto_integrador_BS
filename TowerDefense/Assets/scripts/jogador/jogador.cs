@@ -6,10 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class jogador : NetworkBehaviour
+public class jogador : MonoBehaviour
 {
     public static jogador main;
-    [Networked][SerializeField] private int vida { get; set; } = 100;
+   [SerializeField] private int vida = 100;
     public int creditos = 100;
     [SerializeField] private TextMeshProUGUI vidaTexto;
     [SerializeField] private TextMeshProUGUI creditosTexto;

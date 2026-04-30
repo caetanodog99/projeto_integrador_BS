@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 {
-    public InputField nomeSala;
+    public TextMeshProUGUI nomeSala;
     public TextMeshProUGUI erro;
     NetworkRunner runner;
     public GameObject playerPrefab;
@@ -49,11 +49,13 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     public async void CriarSala()
     {
         StartGame(GameMode.Host);
+        Debug.Log(nomeSala.text);
     }
 
     public async void EntrarSala()
     {
         StartGame(GameMode.Client);
+        Debug.Log(nomeSala.text);
     }
 
 
