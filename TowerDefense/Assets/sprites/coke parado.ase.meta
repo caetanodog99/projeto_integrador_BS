@@ -98,7 +98,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639101370246548467
+  platformSettingsDirtyTick: 639135867383432715
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -124,15 +124,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Frame_0
     originalName: 
-    pivot: {x: 0.39130434, y: 0}
+    pivot: {x: 0.4168562, y: 0.44446027}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 3
       y: 4
-      width: 23
-      height: 42
+      width: 25
+      height: 33
     spriteID: 155c93fdb58a3b14d94e673350112caa
     spriteBone: []
     spriteOutline: []
@@ -144,15 +144,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Frame_1
     originalName: 
-    pivot: {x: 0.4166667, y: 0}
+    pivot: {x: 0.44680506, y: 0.4385547}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 35
-      y: 4
-      width: 24
-      height: 42
+      x: 34
+      y: 3
+      width: 26
+      height: 32
     spriteID: 394bbf31e64281d488b84ba44980f47b
     spriteBone: []
     spriteOutline: []
