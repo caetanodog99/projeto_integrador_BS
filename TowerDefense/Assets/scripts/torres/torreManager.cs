@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Fusion;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static Unity.Collections.Unicode;
 
 public class torreManager : NetworkBehaviour
 {
@@ -25,17 +23,16 @@ public class torreManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI alvoTorre;
     [SerializeField] private TextMeshProUGUI nivelTorre;
 
-    private int valorTorre;
-    private int creditosJogador;
-
-
-    private GameObject torreSelecionada;
-
-    private GameObject colocandoTorre;
-
     [SerializeField] private GameObject painelDinheiro;
 
+    private GameObject torreSelecionada;
+    private GameObject colocandoTorre;
+    private GameObject prefabOriginalParaSpawn; 
 
+    private void Awake()
+    {
+        if (main == null) main = this;
+    }
 
     void Update()
     {
@@ -44,24 +41,14 @@ public class torreManager : NetworkBehaviour
             LimparSelecao();
         }
 
-        if (colocandoTorre)
-        {
-            if (!colocandoTorre.GetComponent<colocarTorre>().colocando)
-            {
-                colocandoTorre = null;
-            }
-        }
-
-        Debug.Log(colocandoTorre);
+        if (colocandoTorre != null) return;
 
         bool clicou = Input.GetMouseButtonDown(0);
         bool tocou = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
 
         if (clicou || tocou)
         {
-
             Vector3 posicaoEntrada = clicou ? Input.mousePosition : (Vector3)Input.GetTouch(0).position;
-
 
             if (EventSystem.current.IsPointerOverGameObject() ||
                (tocou && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)))
@@ -69,12 +56,10 @@ public class torreManager : NetworkBehaviour
                 return;
             }
 
-
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(posicaoEntrada), Vector2.zero, 100f, torreLayer);
 
             if (hit.collider != null)
             {
-
                 if (torreSelecionada)
                 {
                     torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -82,20 +67,15 @@ public class torreManager : NetworkBehaviour
 
                 torreSelecionada = hit.collider.gameObject;
                 torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = true;
-
                 panel.SetActive(true);
-
 
                 upgradeTorres scriptUpgrade = torreSelecionada.GetComponent<upgradeTorres>();
                 nomeTorre.text = torreSelecionada.name.Replace("(Clone)", "");
                 nivelTorre.text = "Nível: " + scriptUpgrade.nivelAtual;
                 valorUpgrade.text = scriptUpgrade.valorAtual;
-
-
             }
             else if (torreSelecionada)
             {
-
                 panel.SetActive(false);
                 torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 torreSelecionada = null;
@@ -112,28 +92,34 @@ public class torreManager : NetworkBehaviour
         }
     }
 
-    public GameObject IniciaTorre(GameObject torre)
-    {   
-        Runner.Spawn(torre);
-        return torre;
-    }
-
     public void setTorre(GameObject torre)
     {
-        creditosJogador = GetComponent<jogador>().creditos;
-        if (creditosJogador >= 50)
+        int custo = torre.GetComponent<Torre>().valor;
+        if (jogador.main.creditos >= custo)
         {
             LimparSelecao();
-            colocandoTorre = IniciaTorre(torre);
+            prefabOriginalParaSpawn = torre;
+            colocandoTorre = Instantiate(torre);
+            colocandoTorre.GetComponent<colocarTorre>().IniciaComoFantasma(this);
         }
         else
         {
             StartCoroutine(SemDinheiro());
         }
-
     }
 
-    
+    public void FinalizarPosicionamento(Vector3 posicaoFinal)
+    {
+        Runner.Spawn(prefabOriginalParaSpawn, posicaoFinal, Quaternion.identity, Runner.LocalPlayer);
+
+        jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
+
+        if (colocandoTorre != null)
+        {
+            Destroy(colocandoTorre);
+            colocandoTorre = null;
+        }
+    }
 
     IEnumerator SemDinheiro()
     {
@@ -154,6 +140,7 @@ public class torreManager : NetworkBehaviour
 
     public void TrocarAlvo()
     {
+        if (!torreSelecionada) return;
         Torre torre = torreSelecionada.GetComponent<Torre>();
 
         if (torre.primeiro)
