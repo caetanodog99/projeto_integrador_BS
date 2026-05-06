@@ -1,12 +1,13 @@
-using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using Fusion;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static Unity.Collections.Unicode;
 
-public class torreManager : MonoBehaviour
+public class torreManager : NetworkBehaviour
 {
     public static torreManager main;
 
@@ -29,6 +30,7 @@ public class torreManager : MonoBehaviour
 
 
     private GameObject torreSelecionada;
+
     private GameObject colocandoTorre;
 
     [SerializeField] private GameObject painelDinheiro;
@@ -49,6 +51,8 @@ public class torreManager : MonoBehaviour
                 colocandoTorre = null;
             }
         }
+
+        Debug.Log(colocandoTorre);
 
         bool clicou = Input.GetMouseButtonDown(0);
         bool tocou = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
@@ -108,13 +112,19 @@ public class torreManager : MonoBehaviour
         }
     }
 
+    public GameObject IniciaTorre(GameObject torre)
+    {   
+        Runner.Spawn(torre);
+        return torre;
+    }
+
     public void setTorre(GameObject torre)
     {
         creditosJogador = GetComponent<jogador>().creditos;
         if (creditosJogador >= 50)
         {
             LimparSelecao();
-            colocandoTorre = Instantiate(torre);
+            colocandoTorre = IniciaTorre(torre);
         }
         else
         {

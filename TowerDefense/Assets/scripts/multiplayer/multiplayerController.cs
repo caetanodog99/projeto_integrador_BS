@@ -12,7 +12,6 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 {
     public TextMeshProUGUI nomeSala;
     public TextMeshProUGUI erro;
-    NetworkRunner runner;
     public GameObject playerPrefab;
     public GameObject TelaEntrarSala;
 
@@ -48,118 +47,118 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
 
     public async void CriarSala()
     {
-        StartGame(GameMode.Host);
+        StartGame(GameMode.Shared);
         Debug.Log(nomeSala.text);
     }
 
     public async void EntrarSala()
     {
-        StartGame(GameMode.Client);
+        StartGame(GameMode.Shared);
         Debug.Log(nomeSala.text);
     }
 
 
 
-    public void OnConnectedToServer(NetworkRunner runner)
+    public void OnConnectedToServer(NetworkRunner _runner)
     {
         throw new NotImplementedException();
     }
 
-    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
+    public void OnConnectFailed(NetworkRunner _runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
         throw new NotImplementedException();
     }
 
-    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
+    public void OnConnectRequest(NetworkRunner _runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
     {
         throw new NotImplementedException();
     }
 
-    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
+    public void OnCustomAuthenticationResponse(NetworkRunner _runner, Dictionary<string, object> data)
     {
         throw new NotImplementedException();
     }
 
-    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
+    public void OnDisconnectedFromServer(NetworkRunner _runner, NetDisconnectReason reason)
     {
         throw new NotImplementedException();
     }
 
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+    public void OnHostMigration(NetworkRunner _runner, HostMigrationToken hostMigrationToken)
     {
         throw new NotImplementedException();
     }
 
-    public void OnInput(NetworkRunner runner, NetworkInput input)
+    public void OnInput(NetworkRunner _runner, NetworkInput input)
+    {
+        //throw new NotImplementedException();
+    }
+
+    public void OnInputMissing(NetworkRunner _runner, PlayerRef player, NetworkInput input)
     {
         throw new NotImplementedException();
     }
 
-    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
+    public void OnObjectEnterAOI(NetworkRunner _runner, NetworkObject obj, PlayerRef player)
     {
         throw new NotImplementedException();
     }
 
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    public void OnObjectExitAOI(NetworkRunner _runner, NetworkObject obj, PlayerRef player)
     {
         throw new NotImplementedException();
     }
 
-    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
+    public void OnPlayerJoined(NetworkRunner _runner, PlayerRef player)
     {
         throw new NotImplementedException();
     }
 
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    public void OnPlayerLeft(NetworkRunner _runner, PlayerRef player)
     {
         throw new NotImplementedException();
     }
 
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
+    public void OnReliableDataProgress(NetworkRunner _runner, PlayerRef player, ReliableKey key, float progress)
     {
        throw new NotImplementedException();
     }
 
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
+    public void OnReliableDataReceived(NetworkRunner _runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
     {
         throw new NotImplementedException();
     }
 
-    public void OnSceneLoadDone(NetworkRunner runner)
+    public void OnSceneLoadDone(NetworkRunner _runner)
     {
 
-        if (runner.LocalPlayer != PlayerRef.None && runner.GetPlayerObject(runner.LocalPlayer) == null)
+        if (_runner.LocalPlayer != PlayerRef.None && _runner.GetPlayerObject(_runner.LocalPlayer) == null)
         {
-            var objetoDaRede = runner.Spawn(playerPrefab,
+            var objetoDaRede = _runner.Spawn(playerPrefab,
                 new Vector3(0, -1, 0),
                 Quaternion.identity,
-                runner.LocalPlayer);
-            runner.SetPlayerObject(runner.LocalPlayer, objetoDaRede);
+                _runner.LocalPlayer);
+            _runner.SetPlayerObject(_runner.LocalPlayer, objetoDaRede);
         }
 
     }
 
-    public void OnSceneLoadStart(NetworkRunner runner)
+    public void OnSceneLoadStart(NetworkRunner _runner)
     {
         throw new NotImplementedException();
     }
 
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
+    public void OnSessionListUpdated(NetworkRunner _runner, List<SessionInfo> sessionList)
     {
         throw new NotImplementedException();
     }
 
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
+    public void OnShutdown(NetworkRunner _runner, ShutdownReason shutdownReason)
     {
         throw new NotImplementedException();
     }
 
-    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
+    public void OnUserSimulationMessage(NetworkRunner _runner, SimulationMessagePtr message)
     {
         throw new NotImplementedException();
     }

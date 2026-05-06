@@ -51,7 +51,7 @@ public class inimigoManager : NetworkBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -65,7 +65,7 @@ public class inimigoManager : NetworkBehaviour
             painelOndas.SetActive(true);
         }
 
-        if(onda == 11)
+        if (onda == 11)
         {
             //Time.timeScale = 0f;
             painelVitoria.SetActive(true);
@@ -90,7 +90,7 @@ public class inimigoManager : NetworkBehaviour
 
     private void SetOndas()
     {
-       
+
         normalTotal = Mathf.RoundToInt(inimigosTotal * (normalSpawn + tankTotal));
         rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
         tankTotal = 0;
@@ -124,10 +124,10 @@ public class inimigoManager : NetworkBehaviour
         StartCoroutine(spawn());
 
     }
-   public void BotaoPlay()
+    public void BotaoPlay()
     {
         SetOndas();
-        
+
         botaoPlay.SetActive(false);
 
         OndasTXT.text = "Onda: 1";
@@ -158,7 +158,7 @@ public class inimigoManager : NetworkBehaviour
 
         if (ondaConcluida && inimigos.Length == 0)
         {
-            Debug.Log("onda "+ onda +" concluida!");
+            Debug.Log("onda " + onda + " concluida!");
             onda++;
             ondaConcluida = false;
             ondaInterrompida = false;

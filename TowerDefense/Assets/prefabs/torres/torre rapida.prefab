@@ -456,17 +456,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   niveis:
-  - area: 4.5
+  - area: 4.2
     dano: 3
     cadencia: 0.2
-    valor: 30
-  - area: 5
-    dano: 5
-    cadencia: 0.1
+    valor: 35
+  - area: 4.5
+    dano: 4
+    cadencia: 0.15
     valor: 50
-  - area: 5.5
-    dano: 10
-    cadencia: 0.08
+  - area: 5
+    dano: 8
+    cadencia: 0.1
     valor: 110
   nivelAtual: 0
   areaTorre: {fileID: 7849059689885682790}
