@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4282173345878755493}
   - component: {fileID: 8036150764030323638}
   - component: {fileID: 8055656122223889775}
+  - component: {fileID: 4131509061293072047}
   m_Layer: 6
   m_Name: torre melee
   m_TagString: torre
@@ -131,6 +132,7 @@ MonoBehaviour:
   colliderArea: {fileID: 1911154344737585501}
   cinza: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.29803923}
   vermelho: {r: 0.7075472, g: 0.19691172, b: 0.19691172, a: 0.27058825}
+  colocando: 1
 --- !u!58 &3591839854061532113
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -584,6 +586,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8978657918522009843, guid: ed26b268f2e01004c82c27ad5544acbb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8055656122223889775}
+    - targetCorrespondingSourceObject: {fileID: 8978657918522009843, guid: ed26b268f2e01004c82c27ad5544acbb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4131509061293072047}
   m_SourcePrefab: {fileID: 100100000, guid: ed26b268f2e01004c82c27ad5544acbb, type: 3}
 --- !u!95 &8036150764030323638
 Animator:
@@ -624,5 +629,23 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 9017163821520474097}
+  - {fileID: 4131509061293072047}
   - {fileID: 305257534516184120}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &4131509061293072047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515359324405269224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

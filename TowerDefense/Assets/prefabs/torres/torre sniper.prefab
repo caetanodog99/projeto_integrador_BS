@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 2658338881208178424}
   - component: {fileID: 4130565858010194720}
   - component: {fileID: 3496005330264265476}
+  - component: {fileID: 228105647212349106}
   m_Layer: 6
   m_Name: torre sniper
   m_TagString: torre
@@ -434,6 +435,7 @@ MonoBehaviour:
   colliderArea: {fileID: 4769528285146080544}
   cinza: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.29803923}
   vermelho: {r: 0.7075472, g: 0.19691172, b: 0.19691172, a: 0.27058825}
+  colocando: 1
 --- !u!58 &8750167525303786800
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -585,6 +587,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8215332402113865557, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3496005330264265476}
+    - targetCorrespondingSourceObject: {fileID: 8215332402113865557, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 228105647212349106}
     - targetCorrespondingSourceObject: {fileID: 5527702467058921362, guid: 8994103557356a24fb1bb771385cf4c3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7254057714306340200}
@@ -628,6 +633,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 5809498683074980007}
+  - {fileID: 228105647212349106}
   - {fileID: 494350401548745739}
   ForceRemoteRenderTimeframe: 0
 --- !u!95 &3496005330264265476
@@ -651,3 +657,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &228105647212349106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879394173876560064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

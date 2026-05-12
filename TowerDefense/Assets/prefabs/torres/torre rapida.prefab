@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 3177258451056340850}
   - component: {fileID: 7825662044419656789}
   - component: {fileID: 4148628320264534069}
+  - component: {fileID: 681739515255823301}
   m_Layer: 6
   m_Name: torre rapida
   m_TagString: torre
@@ -381,6 +382,7 @@ MonoBehaviour:
   colliderArea: {fileID: 3531652783936338757}
   cinza: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.29803923}
   vermelho: {r: 0.7075472, g: 0.19691172, b: 0.19691172, a: 0.27058825}
+  colocando: 1
 --- !u!58 &3040096576958430871
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -617,6 +619,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4203895751718601675, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4148628320264534069}
+    - targetCorrespondingSourceObject: {fileID: 4203895751718601675, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 681739515255823301}
     - targetCorrespondingSourceObject: {fileID: 2387583468351766015, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6362342416515157180}
@@ -660,8 +665,26 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 5146172573016904134}
+  - {fileID: 681739515255823301}
   - {fileID: 7849059689885682790}
   ForceRemoteRenderTimeframe: 0
+--- !u!114 &681739515255823301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613937952823163299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!95 &6362342416515157180
 Animator:
   serializedVersion: 5

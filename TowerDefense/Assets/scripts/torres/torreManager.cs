@@ -27,7 +27,7 @@ public class torreManager : NetworkBehaviour
 
     private GameObject torreSelecionada;
     private GameObject colocandoTorre;
-    private GameObject prefabOriginalParaSpawn; 
+    private GameObject prefabOriginalParaSpawn;
 
     private void Awake()
     {
@@ -43,12 +43,17 @@ public class torreManager : NetworkBehaviour
 
         if (colocandoTorre != null) return;
 
+        HandleSelection();
+    }
+
+    private void HandleSelection()
+    {
         bool clicou = Input.GetMouseButtonDown(0);
         bool tocou = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
 
         if (clicou || tocou)
         {
-            Vector3 posicaoEntrada = clicou ? Input.mousePosition : (Vector3)Input.GetTouch(0).position;
+            Vector3 posicaoInput = clicou ? Input.mousePosition : (Vector3)Input.GetTouch(0).position;
 
             if (EventSystem.current.IsPointerOverGameObject() ||
                (tocou && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId)))
@@ -56,31 +61,43 @@ public class torreManager : NetworkBehaviour
                 return;
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(posicaoEntrada), Vector2.zero, 100f, torreLayer);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(posicaoInput);
+            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero, 100f, torreLayer);
 
             if (hit.collider != null)
             {
-                if (torreSelecionada)
-                {
-                    torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                }
-
-                torreSelecionada = hit.collider.gameObject;
-                torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = true;
-                panel.SetActive(true);
-
-                upgradeTorres scriptUpgrade = torreSelecionada.GetComponent<upgradeTorres>();
-                nomeTorre.text = torreSelecionada.name.Replace("(Clone)", "");
-                nivelTorre.text = "Nível: " + scriptUpgrade.nivelAtual;
-                valorUpgrade.text = scriptUpgrade.valorAtual;
+                SelectTower(hit.collider.gameObject);
             }
             else if (torreSelecionada)
             {
-                panel.SetActive(false);
-                torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                torreSelecionada = null;
+                DeselectTower();
             }
         }
+    }
+
+    private void SelectTower(GameObject tower)
+    {
+        if (torreSelecionada) DeselectTower();
+
+        torreSelecionada = tower;
+        if (torreSelecionada.transform.childCount > 1)
+            torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = true;
+
+        panel.SetActive(true);
+
+        upgradeTorres scriptUpgrade = torreSelecionada.GetComponent<upgradeTorres>();
+        nomeTorre.text = torreSelecionada.name.Replace("(Clone)", "");
+        nivelTorre.text = "Nível: " + scriptUpgrade.nivelAtual;
+        valorUpgrade.text = scriptUpgrade.valorAtual;
+    }
+
+    private void DeselectTower()
+    {
+        if (torreSelecionada && torreSelecionada.transform.childCount > 1)
+            torreSelecionada.transform.GetChild(1).gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        panel.SetActive(false);
+        torreSelecionada = null;
     }
 
     private void LimparSelecao()
@@ -110,7 +127,10 @@ public class torreManager : NetworkBehaviour
 
     public void FinalizarPosicionamento(Vector3 posicaoFinal)
     {
-        Runner.Spawn(prefabOriginalParaSpawn, posicaoFinal, Quaternion.identity, Runner.LocalPlayer);
+        posicaoFinal.z = 0;
+        Runner.Spawn(prefabOriginalParaSpawn, posicaoFinal, Quaternion.identity, Runner.LocalPlayer, (runner, obj) => {
+            obj.transform.position = posicaoFinal;
+        });
 
         jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
 
