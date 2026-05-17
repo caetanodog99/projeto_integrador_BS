@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using JetBrains.Annotations;
 using TMPro;
 using Fusion;
 
@@ -17,7 +14,9 @@ public class inimigoManager : NetworkBehaviour
     [SerializeField] private GameObject inimigoTank;
     [SerializeField] private GameObject inimigoNormal;
 
-    [SerializeField] private int onda = 1;
+    [Networked, OnChangedRender(nameof(AtualizarInterfaceDeOnda))]
+    private int onda { get; set; } = 1;
+
     [SerializeField] private int inimigosTotal = 6;
     [SerializeField] private float inimigosTotalSpawn = 0.2f;
     [SerializeField] private float SpawnDelayMax = 1f;
@@ -49,48 +48,49 @@ public class inimigoManager : NetworkBehaviour
         main = this;
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
+        if (Object != null)
+        {
+            if (!Object.HasStateAuthority && botaoPlay.activeSelf)
+            {
+                botaoPlay.SetActive(false);
+            }
+        }
+
         GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
 
         if (!ondaInterrompida && ondaConcluida && inimigos.Length == 0)
         {
             jogador.main.creditos += 15 + (5 * onda);
             ondaInterrompida = true;
-            painelOndas.SetActive(true);
+
+            if (Object != null && Object.HasStateAuthority)
+            {
+                painelOndas.SetActive(true);
+            }
         }
 
         if (onda == 11)
         {
-            //Time.timeScale = 0f;
             painelVitoria.SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && botaoPlay.activeSelf)
+        if (Object != null && Object.HasStateAuthority)
         {
-            SetOndas();
-
-            botaoPlay.SetActive(false);
-
-            OndasTXT.text = "Onda: 1";
+            if (Input.GetKeyDown(KeyCode.Space) && botaoPlay.activeSelf)
+            {
+                RPC_IniciarJogo();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RPC_ChamarProximaOnda();
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ProximaOnda();
-        }
-
-
     }
 
     private void SetOndas()
     {
-
         normalTotal = Mathf.RoundToInt(inimigosTotal * (normalSpawn + tankTotal));
         rapidoTotal = Mathf.RoundToInt(inimigosTotal * rapidoSpawn);
         tankTotal = 0;
@@ -122,17 +122,55 @@ public class inimigoManager : NetworkBehaviour
         ondas = Embaralhar(ondas);
 
         StartCoroutine(spawn());
-
     }
+
     public void BotaoPlay()
     {
-        SetOndas();
-
-        botaoPlay.SetActive(false);
-
-        OndasTXT.text = "Onda: 1";
+        if (!Object.HasStateAuthority) return;
+        RPC_IniciarJogo();
     }
 
+    public void ProximaOnda()
+    {
+        if (!Object.HasStateAuthority) return;
+        RPC_ChamarProximaOnda();
+    }
+
+    private void AtualizarInterfaceDeOnda()
+    {
+        if (OndasTXT != null)
+        {
+            OndasTXT.text = "Onda: " + onda;
+        }
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_IniciarJogo()
+    {
+        SetOndas();
+        botaoPlay.SetActive(false);
+        AtualizarInterfaceDeOnda();
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_ChamarProximaOnda()
+    {
+        GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
+
+        painelOndas.SetActive(false);
+
+        if (ondaConcluida && inimigos.Length == 0)
+        {
+            Debug.Log("onda " + onda + " concluida!");
+            onda++;
+            ondaConcluida = false;
+            ondaInterrompida = false;
+            inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
+            SetOndas();
+        }
+
+        AtualizarInterfaceDeOnda();
+    }
 
     public List<GameObject> Embaralhar(List<GameObject> ondas)
     {
@@ -150,31 +188,16 @@ public class inimigoManager : NetworkBehaviour
         return resultado;
     }
 
-    public void ProximaOnda()
-    {
-        GameObject[] inimigos = GameObject.FindGameObjectsWithTag("inimigo");
-
-        painelOndas.SetActive(false);
-
-        if (ondaConcluida && inimigos.Length == 0)
-        {
-            Debug.Log("onda " + onda + " concluida!");
-            onda++;
-            ondaConcluida = false;
-            ondaInterrompida = false;
-            inimigosTotal += Mathf.RoundToInt(inimigosTotal * inimigosTotalSpawn);
-            SetOndas();
-        }
-
-        OndasTXT.text = "Onda: " + onda;
-    }
     IEnumerator spawn()
     {
-        for (int i = 0; i < ondas.Count; i++)
+        if (Object.HasStateAuthority)
         {
-            Runner.Spawn(ondas[i], spawnpoint.position, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(SpawnDelayMin, SpawnDelayMax));
+            for (int i = 0; i < ondas.Count; i++)
+            {
+                Runner.Spawn(ondas[i], spawnpoint.position, Quaternion.identity);
+                yield return new WaitForSeconds(Random.Range(SpawnDelayMin, SpawnDelayMax));
+            }
+            ondaConcluida = true;
         }
-        ondaConcluida = true;
     }
 }

@@ -3,11 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class inimigo : NetworkBehaviour
 {
-    [SerializeField] public int vida = 20;
+    [Networked] public int vida { get; set; } = 20;
     [SerializeField] private float velocidade = 2f;
     [SerializeField] private int valor = 10;
 
@@ -15,7 +14,8 @@ public class inimigo : NetworkBehaviour
 
     private Transform checkpoint;
 
-    [NonSerialized] public int index = 0;
+    [Networked]
+    public int index { get; set; } = 0;
     [NonSerialized] public float distancia = 0;
 
     void Awake()
@@ -23,49 +23,92 @@ public class inimigo : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Start()
+    public override void Spawned()
     {
-        checkpoint = inimigoManager.main.checkpoints[index];
+        AtualizarCheckpoint();
     }
 
     void Update()
     {
-        checkpoint = inimigoManager.main.checkpoints[index];
-        distancia = Vector2.Distance(transform.position, inimigoManager.main.checkpoints[index].transform.position);
-        if (Vector2.Distance(checkpoint.transform.position, transform.position) <= 0.1f)
-        {
-            index++;
-            if (index >= inimigoManager.main.checkpoints.Length)
-            {
-                jogador.main.ReceberDano(vida);
-                Destroy(gameObject);
+        if (inimigoManager.main == null) return;
 
+        AtualizarCheckpoint();
+
+        if (checkpoint == null) return;
+
+        distancia = Vector2.Distance(transform.position, checkpoint.position);
+
+        if (Object != null && Object.HasStateAuthority)
+        {
+            if (distancia <= 0.1f)
+            {
+                index++;
+                if (index >= inimigoManager.main.checkpoints.Length)
+                {
+                    if (jogador.main != null) jogador.main.ReceberDano(vida);
+                    Runner.Despawn(Object);
+                    return;
+                }
             }
-        }     
+        }
     }
 
     void FixedUpdate()
     {
-        Vector2 direction = (checkpoint.position - transform.position).normalized;
+        AtualizarCheckpoint();
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        var rotation = Quaternion.Euler(0f, 0f, angle);
+        if (checkpoint != null)
+        {
+            Vector2 direction = (checkpoint.position - transform.position).normalized;
 
-        float rotationSpeed = velocidade * 3f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var rotation = Quaternion.Euler(0f, 0f, angle);
 
-        rb.velocity = direction * velocidade;
+            float rotationSpeed = velocidade * 3f;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
+
+            if (Object != null && Object.HasStateAuthority)
+            {
+                rb.velocity = direction * velocidade;
+            }
+        }
     }
 
-    public void ReceberDano(int dano)
+    private void AtualizarCheckpoint()
     {
+        if (inimigoManager.main != null && index < inimigoManager.main.checkpoints.Length)
+        {
+            checkpoint = inimigoManager.main.checkpoints[index];
+        }
+    }
 
-        vida = vida-dano;
+    public void ReceberDano(int dano, PlayerRef atacante)
+    {
+        if (Object == null || !Object.HasStateAuthority) return;
+
+        vida = vida - dano;
 
         if (vida <= 0)
         {
-            jogador.main.creditos += valor;
-            Destroy(gameObject);
+            if (Runner.LocalPlayer == atacante)
+            {
+                if (jogador.main != null) jogador.main.creditos += valor;
+            }
+            else
+            {
+                RPC_AdicionarCreditos(atacante, valor);
+            }
+
+            Runner.Despawn(Object);
+        }
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_AdicionarCreditos(PlayerRef alvo, int quantidade)
+    {
+        if (Runner.LocalPlayer == alvo && jogador.main != null)
+        {
+            jogador.main.creditos += quantidade;
         }
     }
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using Fusion;
 
-public class Torre : MonoBehaviour
+public class Torre : NetworkBehaviour
 {
     [Header("Especificações da Torre:")]
     public float area = 8f;
@@ -17,20 +17,20 @@ public class Torre : MonoBehaviour
     public bool forte = false;
 
     [Header("Efeitos:")]
-    [SerializeField] GameObject efeitoDisparo;  
+    [SerializeField] GameObject efeitoDisparo;
 
     public GameObject alvo;
     private float recarga = 0f;
 
-     private Animator animator;
+    private Animator animator;
+
     void Start()
     {
-        animator = GetComponent<Animator>(); 
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-
         if (alvo)
         {
             if (recarga >= cadencia)
@@ -38,18 +38,19 @@ public class Torre : MonoBehaviour
                 Vector2 direcao = (alvo.transform.position - transform.position).normalized;
                 float angulo = Mathf.Atan2(direcao.y, direcao.x) * Mathf.Rad2Deg;
                 var rotacao = Quaternion.Euler(0f, 0f, angulo);
-                transform.rotation = rotacao;
 
-                //transform.right = alvo.transform.position - transform.position;
+                inimigo scriptInimigo = alvo.GetComponent<inimigo>();
+                if (scriptInimigo != null && Object != null)
+                {
+                    scriptInimigo.ReceberDano(dano, Object.StateAuthority);
+                }
 
-                alvo.GetComponent<inimigo>().ReceberDano(dano);
                 recarga = 0f;
                 StartCoroutine(DisparoEfeito());
             }
             else
             {
                 recarga += 1 * Time.deltaTime;
-                
             }
         }
     }
