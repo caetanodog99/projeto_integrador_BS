@@ -38,11 +38,13 @@ public class Torre : NetworkBehaviour
                 Vector2 direcao = (alvo.transform.position - transform.position).normalized;
                 float angulo = Mathf.Atan2(direcao.y, direcao.x) * Mathf.Rad2Deg;
                 var rotacao = Quaternion.Euler(0f, 0f, angulo);
+                transform.rotation = rotacao;
 
                 inimigo scriptInimigo = alvo.GetComponent<inimigo>();
-                if (scriptInimigo != null && Object != null)
+                if (scriptInimigo != null)
                 {
-                    scriptInimigo.ReceberDano(dano, Object.StateAuthority);
+  
+                    scriptInimigo.ReceberDano(dano);
                 }
 
                 recarga = 0f;

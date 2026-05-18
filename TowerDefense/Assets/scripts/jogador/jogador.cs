@@ -12,7 +12,9 @@ public class jogador : NetworkBehaviour
     [Networked, OnChangedRender(nameof(AtualizarInterfaceDeVida))]
     public int vida { get; set; } = 100;
 
-    public int creditos = 100;
+    [Networked, OnChangedRender(nameof(AtualizarInterfaceDeCreditos))]
+    public int creditos { get; set; } = 100;
+
     [SerializeField] private TextMeshProUGUI vidaTexto;
     [SerializeField] private TextMeshProUGUI creditosTexto;
 
@@ -28,17 +30,10 @@ public class jogador : NetworkBehaviour
         if (Object.HasStateAuthority)
         {
             vida = 100;
+            creditos = 100;
         }
         AtualizarInterfaceDeVida();
-    }
-
-    void Update()
-    {
-        if (vidaTexto != null && vidaTexto.text == "")
-        {
-            AtualizarInterfaceDeVida();
-        }
-        creditosTexto.text = "Créditos: " + creditos.ToString();
+        AtualizarInterfaceDeCreditos();
     }
 
     private void AtualizarInterfaceDeVida()
@@ -51,6 +46,14 @@ public class jogador : NetworkBehaviour
         if (vida <= 0 && painelDerrota != null)
         {
             painelDerrota.SetActive(true);
+        }
+    }
+
+    private void AtualizarInterfaceDeCreditos()
+    {
+        if (creditosTexto != null)
+        {
+            creditosTexto.text = "Créditos: " + creditos.ToString();
         }
     }
 

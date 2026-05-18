@@ -11,13 +11,11 @@ public class playManager : MonoBehaviour
 
 public void BotaoPause()
     {
-        Time.timeScale = 0;
         painelPause.SetActive(true);
     }
 
     public void BotaoVoltar()
     {
-        Time.timeScale = 1;
         painelPause.SetActive(false);
     }
 
@@ -46,7 +44,6 @@ public void BotaoPause()
             bool pauseAtivo = !painelPause.activeSelf;
 
             painelPause.SetActive(pauseAtivo);
-            Time.timeScale = pauseAtivo ? 0 : 1; 
         }
 
         if (Input.GetKeyDown(KeyCode.E))

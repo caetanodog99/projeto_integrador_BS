@@ -11,7 +11,6 @@ public class inimigo : NetworkBehaviour
     [SerializeField] private int valor = 10;
 
     private Rigidbody2D rb;
-
     private Transform checkpoint;
 
     [Networked]
@@ -25,6 +24,10 @@ public class inimigo : NetworkBehaviour
 
     public override void Spawned()
     {
+        if (inimigoManager.main != null && inimigoManager.main.spawnpoint != null)
+        {
+            transform.position = inimigoManager.main.spawnpoint.position;
+        }
         AtualizarCheckpoint();
     }
 
@@ -67,7 +70,7 @@ public class inimigo : NetworkBehaviour
             float rotationSpeed = velocidade * 3f;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
 
-            if (Object != null && Object.HasStateAuthority)
+            if (Object != null)
             {
                 rb.velocity = direction * velocidade;
             }
@@ -82,7 +85,7 @@ public class inimigo : NetworkBehaviour
         }
     }
 
-    public void ReceberDano(int dano, PlayerRef atacante)
+    public void ReceberDano(int dano)
     {
         if (Object == null || !Object.HasStateAuthority) return;
 
@@ -90,25 +93,9 @@ public class inimigo : NetworkBehaviour
 
         if (vida <= 0)
         {
-            if (Runner.LocalPlayer == atacante)
-            {
-                if (jogador.main != null) jogador.main.creditos += valor;
-            }
-            else
-            {
-                RPC_AdicionarCreditos(atacante, valor);
-            }
 
+            if (jogador.main != null) jogador.main.creditos += valor;
             Runner.Despawn(Object);
-        }
-    }
-
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_AdicionarCreditos(PlayerRef alvo, int quantidade)
-    {
-        if (Runner.LocalPlayer == alvo && jogador.main != null)
-        {
-            jogador.main.creditos += quantidade;
         }
     }
 }
