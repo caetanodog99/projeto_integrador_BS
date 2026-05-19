@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _vida: 20
   velocidade: 2
-  valor: 5
+  valor: 7
   _index: 0
 --- !u!61 &-200967323541042541
 BoxCollider2D:
