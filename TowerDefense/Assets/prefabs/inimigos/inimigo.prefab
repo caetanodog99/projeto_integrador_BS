@@ -133,6 +133,7 @@ MonoBehaviour:
   velocidade: 2
   valor: 5
   _index: 0
+  sprite: {fileID: 444425392000576098}
 --- !u!58 &6831868183253245902
 CircleCollider2D:
   m_ObjectHideFlags: 0

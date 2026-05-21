@@ -27,11 +27,6 @@ public class jogador : NetworkBehaviour
 
     public override void Spawned()
     {
-        if (Object.HasStateAuthority)
-        {
-            vida = 100;
-            creditos = 100;
-        }
         AtualizarInterfaceDeVida();
         AtualizarInterfaceDeCreditos();
     }
@@ -49,7 +44,7 @@ public class jogador : NetworkBehaviour
         }
     }
 
-    private void AtualizarInterfaceDeCreditos()
+   public void AtualizarInterfaceDeCreditos()
     {
         if (creditosTexto != null)
         {

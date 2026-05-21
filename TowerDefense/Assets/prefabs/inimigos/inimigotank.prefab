@@ -133,6 +133,7 @@ MonoBehaviour:
   velocidade: 2
   valor: 7
   _index: 0
+  sprite: {fileID: 5916928196592131165}
 --- !u!61 &-200967323541042541
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ public class torreManager : NetworkBehaviour
     private GameObject colocandoTorre;
     private GameObject prefabOriginalParaSpawn;
 
+    private jogador creditosJogador;
     private void Awake()
     {
         if (main == null) main = this;
@@ -44,6 +45,8 @@ public class torreManager : NetworkBehaviour
         if (colocandoTorre != null) return;
 
         HandleSelection();
+
+
     }
 
     private void HandleSelection()
@@ -132,13 +135,24 @@ public class torreManager : NetworkBehaviour
             obj.transform.position = posicaoFinal;
         });
 
-        jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
+
+        //jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
+        RPC_GastarDinheiro();
 
         if (colocandoTorre != null)
         {
             Destroy(colocandoTorre);
             colocandoTorre = null;
         }
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    void RPC_GastarDinheiro()
+    {
+        Debug.Log(jogador.main.creditos);
+        jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
+        Debug.Log(jogador.main.creditos);
+
     }
 
     IEnumerator SemDinheiro()

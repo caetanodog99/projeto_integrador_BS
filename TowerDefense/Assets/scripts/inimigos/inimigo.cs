@@ -17,6 +17,8 @@ public class inimigo : NetworkBehaviour
     public int index { get; set; } = 0;
     [NonSerialized] public float distancia = 0;
 
+    [SerializeField]private SpriteRenderer sprite;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -90,12 +92,19 @@ public class inimigo : NetworkBehaviour
         if (Object == null || !Object.HasStateAuthority) return;
 
         vida = vida - dano;
-
+        StartCoroutine(CorDano(0.5f));
         if (vida <= 0)
         {
 
             if (jogador.main != null) jogador.main.creditos += valor;
             Runner.Despawn(Object);
         }
+    }
+
+    public IEnumerator CorDano(float segundos)
+    {
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(segundos);
+        sprite.color = Color.white;
     }
 }
