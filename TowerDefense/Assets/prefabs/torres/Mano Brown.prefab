@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 3496005330264265476}
   - component: {fileID: 228105647212349106}
   m_Layer: 6
-  m_Name: torre sniper
+  m_Name: Mano Brown
   m_TagString: torre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -523,7 +523,7 @@ MonoBehaviour:
     dano: 25
     cadencia: 1.3
     valor: 110
-  nivelAtual: 0
+  _nivelAtual: 0
   areaTorre: {fileID: 494350401548745739}
 --- !u!1001 &6241525168092971588
 PrefabInstance:
@@ -634,6 +634,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 2839780501847257528}
   - {fileID: 5809498683074980007}
+  - {fileID: 2658338881208178424}
   - {fileID: 228105647212349106}
   - {fileID: 494350401548745739}
   ForceRemoteRenderTimeframe: 0

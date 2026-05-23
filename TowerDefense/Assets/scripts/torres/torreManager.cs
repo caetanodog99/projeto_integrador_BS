@@ -30,6 +30,7 @@ public class torreManager : NetworkBehaviour
     private GameObject prefabOriginalParaSpawn;
 
     private jogador creditosJogador;
+
     private void Awake()
     {
         if (main == null) main = this;
@@ -45,8 +46,6 @@ public class torreManager : NetworkBehaviour
         if (colocandoTorre != null) return;
 
         HandleSelection();
-
-
     }
 
     private void HandleSelection()
@@ -135,9 +134,8 @@ public class torreManager : NetworkBehaviour
             obj.transform.position = posicaoFinal;
         });
 
-
-        //jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
-        RPC_GastarDinheiro();
+        int custoTorre = prefabOriginalParaSpawn.GetComponent<Torre>().valor;
+        RPC_GastarDinheiro(custoTorre);
 
         if (colocandoTorre != null)
         {
@@ -147,12 +145,16 @@ public class torreManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
-    void RPC_GastarDinheiro()
+    void RPC_GastarDinheiro(int custo)
     {
-        Debug.Log(jogador.main.creditos);
-        jogador.main.creditos -= prefabOriginalParaSpawn.GetComponent<Torre>().valor;
-        Debug.Log(jogador.main.creditos);
+        if (jogador.main != null)
+        {
+           // Debug.Log($"Créditos antes: {jogador.main.creditos}");
 
+            jogador.main.creditos -= custo;
+
+           // Debug.Log($"Créditos depois de gastar {custo}: {jogador.main.creditos}");
+        }
     }
 
     IEnumerator SemDinheiro()
@@ -169,6 +171,17 @@ public class torreManager : NetworkBehaviour
             torreSelecionada.GetComponent<upgradeTorres>().Upgrade();
             nivelTorre.text = "Nível: " + torreSelecionada.GetComponent<upgradeTorres>().nivelAtual.ToString();
             valorUpgrade.text = torreSelecionada.GetComponent<upgradeTorres>().valorAtual;
+        }
+    }
+
+    public void AtualizarPainelUI()
+    {
+        if (torreSelecionada)
+        {
+            upgradeTorres scriptUpgrade = torreSelecionada.GetComponent<upgradeTorres>();
+            nomeTorre.text = torreSelecionada.name.Replace("(Clone)", "");
+            nivelTorre.text = "Nível: " + scriptUpgrade.nivelAtual.ToString();
+            valorUpgrade.text = scriptUpgrade.valorAtual;
         }
     }
 

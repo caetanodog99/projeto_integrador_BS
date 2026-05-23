@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8055656122223889775}
   - component: {fileID: 4131509061293072047}
   m_Layer: 6
-  m_Name: torre melee
+  m_Name: MV Bill
   m_TagString: torre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
     dano: 20
     cadencia: 0.5
     valor: 80
-  nivelAtual: 0
+  _nivelAtual: 0
   areaTorre: {fileID: 305257534516184120}
 --- !u!1 &883455941976134603
 GameObject:
@@ -630,6 +630,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 3264908070494495200}
   - {fileID: 9017163821520474097}
+  - {fileID: 4282173345878755493}
   - {fileID: 4131509061293072047}
   - {fileID: 305257534516184120}
   ForceRemoteRenderTimeframe: 0

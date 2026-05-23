@@ -13,7 +13,7 @@ public class jogador : NetworkBehaviour
     public int vida { get; set; } = 100;
 
     [Networked, OnChangedRender(nameof(AtualizarInterfaceDeCreditos))]
-    public int creditos { get; set; } = 100;
+    public int creditos { get; set; } = 100000;
 
     [SerializeField] private TextMeshProUGUI vidaTexto;
     [SerializeField] private TextMeshProUGUI creditosTexto;

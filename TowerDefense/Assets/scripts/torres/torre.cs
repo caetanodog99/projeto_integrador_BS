@@ -43,18 +43,25 @@ public class Torre : NetworkBehaviour
                 inimigo scriptInimigo = alvo.GetComponent<inimigo>();
                 if (scriptInimigo != null)
                 {
-  
                     scriptInimigo.ReceberDano(dano);
                 }
 
                 recarga = 0f;
-                StartCoroutine(DisparoEfeito());
+
+                RPC_DispararEfeitoEAnimacao();
             }
             else
             {
                 recarga += 1 * Time.deltaTime;
             }
         }
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_DispararEfeitoEAnimacao()
+    {
+        StopAllCoroutines();
+        StartCoroutine(DisparoEfeito());
     }
 
     IEnumerator DisparoEfeito()

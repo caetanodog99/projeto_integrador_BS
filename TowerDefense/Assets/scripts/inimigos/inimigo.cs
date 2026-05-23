@@ -17,7 +17,9 @@ public class inimigo : NetworkBehaviour
     public int index { get; set; } = 0;
     [NonSerialized] public float distancia = 0;
 
-    [SerializeField]private SpriteRenderer sprite;
+    [SerializeField] private SpriteRenderer sprite;
+
+    private Coroutine corotinaDano;
 
     void Awake()
     {
@@ -92,13 +94,27 @@ public class inimigo : NetworkBehaviour
         if (Object == null || !Object.HasStateAuthority) return;
 
         vida = vida - dano;
-        StartCoroutine(CorDano(0.5f));
+
         if (vida <= 0)
         {
-
             if (jogador.main != null) jogador.main.creditos += valor;
             Runner.Despawn(Object);
         }
+        else
+        {
+            RPC_AtivarEfeitoDano();
+        }
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void RPC_AtivarEfeitoDano()
+    {
+        if (corotinaDano != null)
+        {
+            StopCoroutine(corotinaDano);
+        }
+
+        corotinaDano = StartCoroutine(CorDano(0.2f));
     }
 
     public IEnumerator CorDano(float segundos)
@@ -106,5 +122,6 @@ public class inimigo : NetworkBehaviour
         sprite.color = Color.red;
         yield return new WaitForSeconds(segundos);
         sprite.color = Color.white;
+        corotinaDano = null;
     }
 }
