@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 7825662044419656789}
   - component: {fileID: 4148628320264534069}
   - component: {fileID: 681739515255823301}
+  - component: {fileID: 2055239574151869019}
   m_Layer: 6
   m_Name: Afrika Bambataa
   m_TagString: torre
@@ -470,7 +471,7 @@ MonoBehaviour:
     dano: 8
     cadencia: 0.1
     valor: 110
-  _nivelAtual: 0
+  nivelAtual: 0
   areaTorre: {fileID: 7849059689885682790}
 --- !u!1 &7949044310112638570
 GameObject:
@@ -622,6 +623,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4203895751718601675, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 681739515255823301}
+    - targetCorrespondingSourceObject: {fileID: 4203895751718601675, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2055239574151869019}
     - targetCorrespondingSourceObject: {fileID: 2387583468351766015, guid: 21633b1544e0aaa44bc28c011749325b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6362342416515157180}
@@ -687,6 +691,102 @@ MonoBehaviour:
   SyncParent: 0
   _autoAOIOverride: 1
   DisableSharedModeInterpolation: 0
+--- !u!82 &2055239574151869019
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613937952823163299}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 457c4bdc39128c34d9a6e5b8df37a3a1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.127
+  m_Pitch: 0.8
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &6362342416515157180
 Animator:
   serializedVersion: 5

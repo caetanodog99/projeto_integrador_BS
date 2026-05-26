@@ -24,9 +24,11 @@ public class Torre : NetworkBehaviour
 
     private Animator animator;
 
+    private AudioSource audioAtirando;
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioAtirando = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -60,6 +62,7 @@ public class Torre : NetworkBehaviour
     [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     private void RPC_DispararEfeitoEAnimacao()
     {
+        audioAtirando.Play();
         StopAllCoroutines();
         StartCoroutine(DisparoEfeito());
     }
