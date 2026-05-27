@@ -71,9 +71,10 @@ public class playManager : MonoBehaviour
 
             painelLoja.SetActive(lojaAtiva);
         }
+    }
 
-        if (menuSala.activeSelf == false)
-        {
+    public void AtivarBotoes()
+    {
             foreach (GameObject botoes in botoesLista)
             {
                 if (botoes != null)
@@ -81,6 +82,5 @@ public class playManager : MonoBehaviour
                     botoes.SetActive(true);
                 }
             }
-        }
     }
 }
