@@ -15,7 +15,7 @@ public class listaPlayers : MonoBehaviour
 
     void AtualizarPlacar()
     {
-        string placar = "Jogadores na sessão: \n";
+        string placar = "Jogadores: \n";
         NetworkObject[] todosObjetos = FindObjectsOfType<NetworkObject>();
         int numeroPlayer = 1;
 
@@ -25,7 +25,7 @@ public class listaPlayers : MonoBehaviour
 
             if (player != null)
             {
-                string marcador = networkObj.HasInputAuthority ? " (VOCÊ)" : "";
+                string marcador = networkObj.HasInputAuthority ? " (HOST)" : "";
                 placar += $"Player {numeroPlayer}{marcador}\n";
                 numeroPlayer++;
             }
