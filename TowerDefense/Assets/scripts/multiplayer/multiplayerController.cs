@@ -14,9 +14,11 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     public TextMeshProUGUI erro;
     public GameObject playerPrefab;
     public GameObject TelaEntrarSala;
+    [SerializeField] public TextMeshProUGUI salaAtual;
 
     private NetworkRunner _runner;
 
+    
     async void StartGame(GameMode mode)
     {
         _runner = gameObject.AddComponent<NetworkRunner>();
@@ -49,12 +51,14 @@ public class multiplayerController : MonoBehaviour, INetworkRunnerCallbacks
     {
         StartGame(GameMode.Shared);
         Debug.Log(nomeSala.text);
+        salaAtual.SetText("Sala: " + nomeSala.text);
     }
 
     public async void EntrarSala()
     {
         StartGame(GameMode.Shared);
         Debug.Log(nomeSala.text);
+        salaAtual.SetText("Sala: " + nomeSala.text);
     }
 
 

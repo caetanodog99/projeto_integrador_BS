@@ -64,7 +64,7 @@ public class playManager : MonoBehaviour
             painelPause.SetActive(pauseAtivo);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !menuSala.activeSelf)
         {
 
             bool lojaAtiva = !painelLoja.activeSelf;
