@@ -31,7 +31,7 @@ public class upgradeTorres : NetworkBehaviour
     {
         if (nivelAtual < niveis.Length)
         {
-            if (niveis[nivelAtual].valor < jogador.main.creditos)
+            if (niveis[nivelAtual].valor <= jogador.main.creditos)
             {
                 RPC_SolicitarUpgradeServidor();
             }
@@ -43,7 +43,7 @@ public class upgradeTorres : NetworkBehaviour
     {
         if (nivelAtual < niveis.Length)
         {
-            if (niveis[nivelAtual].valor < jogador.main.creditos)
+            if (niveis[nivelAtual].valor <= jogador.main.creditos)
             {
                 jogador.main.creditos = jogador.main.creditos - niveis[nivelAtual].valor;
 
