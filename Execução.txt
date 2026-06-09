@@ -1,0 +1,10 @@
+Compilação:
+Adicionar o projeto no Unity Hub, ao abrir, pode mudar para build de windows entrando em File > Build Settings > Windows > build.
+É possível rodar somente dando play ou trocando de game para simulator, ou vice-versa.
+
+Jogando:
+Ao entrar no jogo, pode clicar na engrenagem para modificar algumas opções, ou apertar na porta com uma seta para fechar o jogo.
+
+Clicando em jogar, é apresentado um tutorial em vídeo, podendo ser fechado pelo "X" vermelho no canto superior da tela do vídeo.
+
+Você pode digitar um nome e criar uma sala ou entrar em uma que um amigo já criou, ao entrar na sala pode clicar em Contratar para adicionar torres, o Host da sala pode dar play e todos os jogadores podem adicionar mais torres ou evoluir as que já estão na fase.
